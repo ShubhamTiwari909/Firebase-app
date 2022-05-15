@@ -1,0 +1,10 @@
+.carouselSize{
+    width:45%;
+    margin: 0 auto;
+}
+@media screen and (min-width:300px) and (max-width:700px) {
+    .carouselSize{
+        width:100%;
+        padding: 0 2rem;
+    }
+}
