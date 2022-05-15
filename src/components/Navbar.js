@@ -48,17 +48,17 @@ function Navbar(props) {
                 </a>
               </li>
               <li className="nav-item pr-2 md:pr-0 sm:my-0 my-5 md:my-8">
-                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0" href="#">
+                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0" href="#donation">
                   Donate
                 </a>
               </li>
               <li className="nav-item pr-2 md:pr-0 sm:my-0 my-5 md:my-8">
-                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0" href="#">
+                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0" href="#about">
                   About
                 </a>
               </li>
               <li className="nav-item pr-2 md:pr-0 sm:my-0 my-5 md:my-8">
-                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0" href="#">
+                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0" href="#contact">
                   Contact
                 </a>
               </li>
@@ -68,7 +68,7 @@ function Navbar(props) {
                 </a>
               </li>
               <li className="nav-item pr-2 md:pr-0 sm:my-0 my-5 md:mx-8">
-                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0 my-7" href="#">
+                <a className="nav-link text-slate-200 sm:ml-8 text-xl sm:my-0 my-7" href='#google'>
                   <GoogleButton />
                 </a>       
               </li>

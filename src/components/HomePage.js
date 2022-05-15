@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
+import Gallary from './Gallary'
 import CarouselMaker from './CarouselMaker'
+import Donate from './Donate'
 import Benefits from './Benefits'
+import Contact from './Contact'
 import Footer from './Footer'
-import {CgDarkMode} from 'react-icons/cg'
-import {MdLightMode} from 'react-icons/md'
+import { CgDarkMode } from 'react-icons/cg'
+import { MdLightMode } from 'react-icons/md'
 function HomePage() {
     const [darkmode, setDarkmode] = useState(true);
     const isDarkmode = () => setDarkmode(!darkmode);
@@ -17,17 +20,26 @@ function HomePage() {
             <div>
                 <div className="my-16 mx-5 text-center" >
                     <button onClick={isDarkmode}>
-                    {
-                    darkmode ? <MdLightMode size="4rem" color="yellow" /> : <CgDarkMode color="black" size="4rem" />
-                    }
+                        {
+                            darkmode ? <MdLightMode size="4rem" color="yellow" /> : <CgDarkMode color="black" size="4rem" />
+                        }
                     </button>
                 </div>
             </div>
-            <section id="home" className="my-8">
+            <section id="home">
+                <Gallary />
+            </section>
+            <section id="donation">
+                <Donate toggleDarkmode={darkmode} />
+            </section>
+            <section className="my-8">
                 <CarouselMaker />
             </section>
             <section id="benefits" className="mt-40 mb-10">
                 <Benefits />
+            </section>
+            <section id="contact">
+                <Contact />
             </section>
             <div>
                 <Footer />

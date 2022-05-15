@@ -7,11 +7,7 @@ import './Carousel.css'
 function CarouselMaker() {
     return (
         <div className="carouselSize">
-            <div class="text-3xl md:text-5xl font-extrabold text-center my-8">
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-600 via-red-700 to-violet-700">
-                    Welcome to Care Blood
-                </span>
-            </div>
+            
             <div id="carouselExampleCaptions" className="carousel slide relative" data-bs-ride="carousel">
                 <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                     <button
