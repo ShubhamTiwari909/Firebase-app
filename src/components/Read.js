@@ -1,5 +1,5 @@
 // Import Firestore database
-import db from './firebase';
+import db from './Firebase';
 import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
