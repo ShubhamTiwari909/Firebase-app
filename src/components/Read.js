@@ -39,7 +39,7 @@ const Read = () => {
             {
                 info.map((data) => (
                     <div key={data.uniqueId} className="grid place-content-center my-10">
-                        {/* <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                             <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{data.Title}</h5>
                             <p className="mb-5 text-base text-gray-100 sm:text-lg dark:text-gray-100">{data.Description}</p>
                             <p className="mb-5text-gray-300 text-sm dark:text-gray-300">{data.date}</p>
@@ -55,13 +55,6 @@ const Read = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>*/}
-                        <div>
-                            <h1>{data.Title}</h1>
-                            <h1>{data.Description}</h1>
-                            <h1>{data.date}</h1>
-                            <button><NavLink to={`/update/${data.uniqueId}`}>Update</NavLink></button>
-                            <button onClick={() => handleDelete(data.uniqueId)}>Delete</button>
                         </div>
                     </div>
                 ))
