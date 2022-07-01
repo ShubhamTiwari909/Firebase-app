@@ -13,18 +13,15 @@ const Read = () => {
 
     // Start the fetch operation as soon as
     // the page loads
-    useEffect(() => {
-        Fetchdata();
-    });
-
-    // Fetch the required data using the get() method
-    const Fetchdata = async () => {
+    useEffect(async () => {
         const querySnapshot = await getDocs(collection(db, "data"));
         querySnapshot.forEach((element) => {
             var data = element.data();
             setInfo(arr => [...arr, data]);
         });
-    }
+    },[]);
+
+  
 
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "data", id));
