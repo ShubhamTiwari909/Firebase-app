@@ -8,7 +8,7 @@ import "tailwindcss/tailwind.css"
 function App() {
   return (
     <div>
-      <nav className="flex gap-6 bg-slate-800 p-5 text-white">
+      <nav className="flex gap-6 bg-slate-800 p-5 text-white sticky top-0 z-50">
         <div>
           <button onClick={() => window.location.reload()}>
             <NavLink to='/'>Home</NavLink>
