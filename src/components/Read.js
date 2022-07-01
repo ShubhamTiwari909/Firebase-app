@@ -1,4 +1,5 @@
 // Import Firestore database
+import {useEffect} from 'react';
 import db from './Firebase';
 import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import { useState } from 'react';
@@ -12,7 +13,7 @@ const Read = () => {
 
     // Start the fetch operation as soon as
     // the page loads
-    window.addEventListener('load', () => {
+    useEffect(() => {
         Fetchdata();
     });
 
