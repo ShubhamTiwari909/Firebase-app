@@ -1,0 +1,13 @@
+.LandingPage {
+    height:100vh;
+    background-image: url("https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+@media screen and (max-width:800px) {
+    .LandingPage{
+        background-image: url("https://images.pexels.com/photos/7793193/pexels-photo-7793193.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load")
+    }
+}

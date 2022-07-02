@@ -22,7 +22,7 @@ const Update = () => {
 				date: date,
 			});
 			toast.success("Task Updated successfully",{theme:"dark"})
-			navigation('/')
+			navigation('/home')
 		}
 		catch (err) {
 			console.log(err);
@@ -79,8 +79,8 @@ const Update = () => {
 							</button>
 						</div>
 						<div className="md:w-1/3">
-							<button onClick={() => window.location.reload()} className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-								<Link to='/'>Cancel</Link>
+							<button className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+								<Link to='/home'>Cancel</Link>
 							</button>
 						</div>
 					</div>

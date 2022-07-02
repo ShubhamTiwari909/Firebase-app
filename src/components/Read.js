@@ -1,12 +1,12 @@
 // Import Firestore database
 import db from './Firebase';
-import { collection, doc, getDocs, deleteDoc} from "firebase/firestore";
+import { collection, doc, getDocs, deleteDoc,query, where} from "firebase/firestore";
 import { useState,useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
-const Read = () => {
+const Read = ({userId}) => {
 
     const [info, setInfo] = useState([]);
     const [search, setSearch] = useState("")
@@ -19,16 +19,14 @@ const Read = () => {
         setSearch(e.target.value)
     }
 
-
-
     useEffect(() => {
         async function fetch() {
-            const querySnapshot2 = await getDocs(collection(db, "data"));
-            setInfo(querySnapshot2.docs)
+            const querySnapshot1 = await getDocs(query(collection(db, "data"),where("userId","==",userId)));
+            setInfo(querySnapshot1.docs)
             dispatch({ type: "FETCH", payload: info })
         }
         fetch();
-    }, [info, dispatch])
+    }, [info, dispatch,userId])
 
 
     const handleDelete = async (id) => {
@@ -58,7 +56,7 @@ const Read = () => {
                         }
                     }).map((data) => (
                         <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
-                            <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                            <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                                 <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
                                 <p className="mb-5 text-base text-gray-100 sm:text-lg dark:text-gray-100">{data._document.data.value.mapValue.fields.Description.stringValue}</p>
                                 <p className="mb-5text-gray-300 text-sm dark:text-gray-300">{data._document.data.value.mapValue.fields.date.stringValue}</p>

@@ -4,7 +4,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { Link,useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 
-const Add = () => {
+const Add = ({userId}) => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [date, setDate] = useState("");
@@ -21,13 +21,14 @@ const Add = () => {
 			// Add data to the store
 			const docRef = doc(db, "data", uniqueId)
 			await setDoc(docRef, {
+				userId:userId,
 				Title: title.toUpperCase(),
 				Description: description,
 				date: date,
 				uniqueId: uniqueId
 			});
 			toast.success("Task added successfully",{theme:"dark"})
-			navigation('/')
+			navigation('/home')
 		}
 		catch (err) {
 			console.log(err);
@@ -84,8 +85,8 @@ const Add = () => {
 							</button>
 						</div>
 						<div className="md:w-1/3">
-							<button onClick={() => window.location.reload()} className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-								<Link to='/'>Cancel</Link>
+							<button className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+								<Link to='/home'>Cancel</Link>
 							</button>
 						</div>
 					</div>
