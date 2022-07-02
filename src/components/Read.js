@@ -33,7 +33,7 @@ const Read = () => {
 
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "data", id));
-        toast.error("Task deleted successfully")
+        toast.error("Task deleted successfully",{theme:"dark",icon: "🚀"})
         navigation('/')
     }
 

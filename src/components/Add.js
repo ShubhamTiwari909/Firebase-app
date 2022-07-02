@@ -26,7 +26,7 @@ const Add = () => {
 				date: date,
 				uniqueId: uniqueId
 			});
-			toast.success("Task added successfully")
+			toast.success("Task added successfully",{theme:"dark"})
 			navigation('/')
 		}
 		catch (err) {

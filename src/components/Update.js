@@ -21,7 +21,7 @@ const Update = () => {
 				Description: description,
 				date: date,
 			});
-			toast.success("Task Updated successfully")
+			toast.success("Task Updated successfully",{theme:"dark"})
 			navigation('/')
 		}
 		catch (err) {
