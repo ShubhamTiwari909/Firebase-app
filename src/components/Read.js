@@ -32,7 +32,7 @@ const Read = ({userId}) => {
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "data", id));
         toast.error("Task deleted successfully",{theme:"dark",icon: "🚀"})
-        navigation('/')
+        navigation('/home')
     }
 
     // Display the result on the page
