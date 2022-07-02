@@ -1,39 +1,46 @@
 // Import Firestore database
 import { useEffect } from 'react';
 import db from './Firebase';
-import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
+import { collection, doc, getDocs, deleteDoc,query,where } from "firebase/firestore";
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import {useDispatch,useSelector} from 'react-redux'
+import {toast} from 'react-toastify';
 
 
 const Read = () => {
 
     const [info, setInfo] = useState([]);
+    const [search, setSearch] = useState("")
     const navigation = useNavigate()
+    const dispatch = useDispatch()
+    
+    const todos = useSelector(state => state)
 
     useEffect(() => {
         async function fetch(){
-            const querySnapshot = await getDocs(collection(db, "data"));
-            setInfo(querySnapshot.docs)
+            const querySnapshot1 = await getDocs(query(collection(db, "data"),where("Title","==",search)));
+            const querySnapshot2 = await getDocs(collection(db, "data"));
+            setInfo(search === "" ? querySnapshot2.docs : querySnapshot1.docs)
+            dispatch({ type: "FETCH", payload: info })
         }
         fetch();
-    }, [])
+    }, [info,dispatch])
     
-
 
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "data", id));
-        window.location.reload();
+        toast.error("Task deleted successfully")
         navigation('/')
     }
 
     // Display the result on the page
     return (
         <div>
-            <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-center text-2xl my-5">Student Details</h2>
+            <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-center text-2xl my-5">Task Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
                 {
-                    info.map((data) => (
+                    todos.map((data) => (
                         <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                             <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                                 <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{data._document.data.value.mapValue.fields.Title.stringValue}</h5>

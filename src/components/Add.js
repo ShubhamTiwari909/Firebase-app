@@ -2,6 +2,7 @@ import { useState } from 'react';
 import db from './Firebase';
 import { setDoc, doc } from "firebase/firestore";
 import { Link,useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 const Add = () => {
 	const [title, setTitle] = useState("");
@@ -25,9 +26,8 @@ const Add = () => {
 				date: date,
 				uniqueId: uniqueId
 			});
-
+			toast.success("Task added successfully")
 			navigation('/')
-			window.location.reload();
 		}
 		catch (err) {
 			console.log(err);
@@ -36,8 +36,8 @@ const Add = () => {
 
 
 	return (
-		<div>
-			<center className="my-10">
+		<div className="grid place-content-center">
+			<div className="my-10">
 				<h2 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-center text-2xl my-5">Add a Task</h2>
 				<form className="w-full max-w-sm" onSubmit={(event) => { saveData(event) }}>
 					<div className="md:flex md:items-center mb-6">
@@ -48,7 +48,7 @@ const Add = () => {
 						</div>
 						<div className="md:w-2/3">
 							<input className="bg-gray-200  border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text"
-								value={title} onChange={(e) => setTitle(e.target.value)} />
+								value={title} onChange={(e) => setTitle(e.target.value)} required />
 						</div>
 					</div>
 					<div className="md:flex md:items-center mb-6">
@@ -59,7 +59,7 @@ const Add = () => {
 						</div>
 						<div className="md:w-2/3">
 							<textarea className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-								value={description} onChange={(e) => setDescription(e.target.value)} />
+								value={description} onChange={(e) => setDescription(e.target.value)} required/>
 						</div>
 					</div>
 					<div className="md:flex md:items-center mb-6">
@@ -71,11 +71,11 @@ const Add = () => {
 						<div className="md:w-2/3">
 							<input type="date"
 								className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-password"
-								value={date} onChange={(e) => setDate(e.target.value)} />
+								value={date} onChange={(e) => setDate(e.target.value)} required/>
 						</div>
 					</div>
 
-					<div className="md:flex md:items-center">
+					<div className="flex justify-center items-center space-x-3">
 						<div className="md:w-1/3"></div>
 						<div className="md:w-1/3">
 							<button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -90,7 +90,7 @@ const Add = () => {
 						</div>
 					</div>
 				</form>
-			</center>
+			</div>
 
 		</div>
 	);

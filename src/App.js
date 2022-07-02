@@ -1,5 +1,6 @@
 import { NavLink, Routes, Route } from 'react-router-dom'
-import './App.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import Add from './components/Add'
 import Update from './components/Update';
 import Read from './components/Read'
@@ -18,7 +19,9 @@ function App() {
           <NavLink to='/add'>Add</NavLink>
         </div>
       </nav>
-
+      <div>
+        <ToastContainer />
+      </div>
       <Routes>
         <Route exact path='/' element={<Read />} />
         <Route exact path='/add' element={<Add />} />
