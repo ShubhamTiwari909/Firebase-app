@@ -1,4 +1,6 @@
 import { NavLink, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import Add from './components/Add'
 import Update from './components/Update';
 import Read from './components/Read'
