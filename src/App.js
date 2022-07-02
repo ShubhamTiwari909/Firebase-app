@@ -20,7 +20,7 @@ function App() {
         </div>
       </nav>
       <div>
-        <ToastContainer draggablePercent={60} transition={"Bounce"}/>
+        <ToastContainer transition={"Bounce"}/>
       </div>
       <Routes>
         <Route exact path='/' element={<Read />} />
