@@ -17,7 +17,7 @@ const Update = () => {
 		try {
 			const userRef = doc(db, "data", objectId.id);
 			await updateDoc(userRef, {
-				Title: title,
+				Title: title.toUpperCase(),
 				Description: description,
 				date: date,
 			});

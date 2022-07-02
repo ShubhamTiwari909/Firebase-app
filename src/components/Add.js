@@ -21,7 +21,7 @@ const Add = () => {
 			// Add data to the store
 			const docRef = doc(db, "data", uniqueId)
 			await setDoc(docRef, {
-				Title: title,
+				Title: title.toUpperCase(),
 				Description: description,
 				date: date,
 				uniqueId: uniqueId
