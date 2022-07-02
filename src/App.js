@@ -20,7 +20,7 @@ function App() {
         </div>
       </nav>
       <div>
-        <ToastContainer transition={"Bounce"}/>
+        <ToastContainer />
       </div>
       <Routes>
         <Route exact path='/' element={<Read />} />

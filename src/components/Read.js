@@ -45,7 +45,7 @@ const Read = () => {
                 <input type="text" className="py-1 px-3 border-b-2 rounded border-slate-700 transition-all duration-400 ease-out 
                 hover:border-t-2 hover:border-l-2 hover:border-r-2 hover:rounded-md hover:border-l-indigo-400 hover:border-t-pink-400
                 hover:border-r-purple-400 hover:border-b-indigo-500
-                focus:outline-none" value={search} onChange={handleSearch}/>
+                focus:outline-none" value={search} onChange={handleSearch} placeholder="🗯 Search" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
                 {
