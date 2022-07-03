@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { NavLink, Routes, Route, useNavigate } from 'react-router-dom'
-import { ToastContainer,toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Landing from './components/Landing'
 import Add from './components/Add'
 import Update from './components/Update';
-import Read from './components/Read'
+import Profile from './components/Profile'
+import Home from './components/Home';
+import Details from './components/Details';
+import UserProfile from './components/UserProfile';
 import "tailwindcss/tailwind.css"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { FcGoogle } from 'react-icons/fc'
@@ -25,8 +28,8 @@ function App() {
           setGoogleSignin(true)
           navigation('/home')
           setUserid(result.user.uid)
-          toast.success("Signed in successfully",{
-            theme:"dark"
+          toast.success("Signed in successfully", {
+            theme: "dark"
           })
         }
       })
@@ -35,8 +38,8 @@ function App() {
     signOut(auth, googleAuthProvider).then("sign out successfully")
     setGoogleSignin(false)
     navigation('/')
-    toast.error("Signed out",{
-      theme:"dark"
+    toast.error("Signed out", {
+      theme: "dark"
     })
   }
 
@@ -48,7 +51,7 @@ function App() {
             <div
               className="grid grid-cols-2 place-items-center lg:text-xl font-bold leading-relaxed mr-4 py-2 whitespace-nowrap text-white"
             >
-              E-Todo
+              E-Quotes
             </div>
             <button
               className="text-slate-900 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-slate-100 block lg:hidden outline-none focus:outline-none"
@@ -66,9 +69,14 @@ function App() {
             id="example-navbar-danger"
           >
             <ul className="flex flex-col -mx-4 lg:flex-row list-none lg:ml-auto">
-              <li className="nav-item">
+            <li className="nav-item">
                 <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
                   <NavLink to="/home" onClick={() => setNavbarOpen(!navbarOpen)}>Home</NavLink>
+                </p>
+              </li>
+              <li className="nav-item">
+                <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
+                  <NavLink to="/profile" onClick={() => setNavbarOpen(!navbarOpen)}>Profile</NavLink>
                 </p>
               </li>
               <li className="nav-item">
@@ -102,10 +110,13 @@ function App() {
         <ToastContainer className="w-2/3 lg:w-1/5" />
       </div>
       <Routes>
-      <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
-        <Route exact path='/home' element={<Read userId={userId} />} />
+        <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
+        <Route exact path='/home' element={<Home />} />
+        <Route exact path='/profile' element={<Profile userId={userId} />} />
         <Route exact path='/add' element={<Add userId={userId} />} />
         <Route exact path='/update/:id' element={<Update />} />
+        <Route exact path='/details/:id' element={<Details />} />
+        <Route exact path='/userprofile/:id' element={<UserProfile />} />
       </Routes>
     </div>
   );

@@ -5,6 +5,7 @@ import { Link,useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 
 const Add = ({userId}) => {
+	const [name, setName] = useState("");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [date, setDate] = useState("");
@@ -22,6 +23,7 @@ const Add = ({userId}) => {
 			const docRef = doc(db, "data", uniqueId)
 			await setDoc(docRef, {
 				userId:userId,
+				Name:name,
 				Title: title.toUpperCase(),
 				Description: description,
 				date: date,
@@ -39,17 +41,28 @@ const Add = ({userId}) => {
 	return (
 		<div className="grid place-content-center">
 			<div className="my-10">
-				<h2 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-center text-2xl my-5">Add a Task</h2>
+				<h2 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-center text-2xl my-5">Add a Quote</h2>
 				<form className="w-full max-w-sm" onSubmit={(event) => { saveData(event) }}>
 					<div className="md:flex md:items-center mb-6">
 						<div className="md:w-1/3">
 							<label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
-								Task
+								Title
 							</label>
 						</div>
 						<div className="md:w-2/3">
 							<input className="bg-gray-200  border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text"
 								value={title} onChange={(e) => setTitle(e.target.value)} required />
+						</div>
+					</div>
+					<div className="md:flex md:items-center mb-6">
+						<div className="md:w-1/3">
+							<label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
+								Written By
+							</label>
+						</div>
+						<div className="md:w-2/3">
+							<input className="bg-gray-200  border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text"
+								value={name} onChange={(e) => setName(e.target.value)} required />
 						</div>
 					</div>
 					<div className="md:flex md:items-center mb-6">
