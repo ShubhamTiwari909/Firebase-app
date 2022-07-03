@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 function Home() {
 
     const dispatch = useDispatch()
-    const todos = useSelector(state => state)
+    const quotes = useSelector(state => state)
 
     useEffect(() => {
         async function fetch() {
@@ -27,7 +27,7 @@ function Home() {
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
                 {
-                    todos?.map((data) => (
+                    quotes?.map((data) => (
                         <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                             <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
                                >

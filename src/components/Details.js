@@ -1,6 +1,6 @@
 import db from './Firebase';
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, createRef, useCallback, useState } from 'react';
+import { useEffect, createRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { toPng } from 'html-to-image';
@@ -9,11 +9,9 @@ import { toPng } from 'html-to-image';
 
 function Details() {
   const taskId = useParams()
-
-  const dispatch = useDispatch()
-
-  const todos = useSelector(state => state)
   const ref = createRef(null)
+  const dispatch = useDispatch()
+  const quotes = useSelector(state => state)
 
 
   useEffect(() => {
@@ -25,6 +23,7 @@ function Details() {
     fetch();
   }, [taskId.id, dispatch])
 
+  
   //image download section
   const onButtonClick = useCallback(() => {
     if (ref.current === null) {
@@ -46,7 +45,7 @@ function Details() {
     <div className="mt-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
         {
-          todos?.map((data) => (
+          quotes?.map((data) => (
             <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
               <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <div id={data._document.data.value.mapValue.fields.uniqueId.stringValue} ref={ref}>
@@ -60,7 +59,7 @@ function Details() {
                 </div>
 
                 <div className="justify-center items-center mt-5 sm:flex sm:space-y-0 sm:space-x-4">
-                  <div className="w-full my-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
+                  <div className="w-full sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                     <div className="text-left">
                       <button><NavLink to={`/home`}>Home</NavLink></button>
                     </div>
@@ -72,7 +71,7 @@ function Details() {
                   </div>
 
                 </div>
-                <div className="justify-center items-center sm:flex sm:space-y-0 sm:space-x-4">
+                <div className="justify-center items-center sm:flex sm:space-y-0 sm:space-x-4 my-3">
                   <div className="w-full mb-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                     <div className="text-left">
                       <button

@@ -9,9 +9,11 @@ import Profile from './components/Profile'
 import Home from './components/Home';
 import Details from './components/Details';
 import UserProfile from './components/UserProfile';
+import Footer from './components/Footer'
 import "tailwindcss/tailwind.css"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { FcGoogle } from 'react-icons/fc'
+import { FaArrowCircleUp } from 'react-icons/fa';
 
 function App() {
   const [googleSignin, setGoogleSignin] = useState(false)
@@ -43,9 +45,18 @@ function App() {
     })
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+      /* you can also use 'auto' behaviour
+         in place of 'smooth' */
+    });
+  }
+
   return (
     <div>
-      <nav className="fixed top-0 w-full flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-900">
+      <nav className="w-full flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-r from-indigo-700 via-purple-800 to-pink-900">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <div
@@ -69,7 +80,7 @@ function App() {
             id="example-navbar-danger"
           >
             <ul className="flex flex-col -mx-4 lg:flex-row list-none lg:ml-auto">
-            <li className="nav-item">
+              <li className="nav-item">
                 <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
                   <NavLink to="/home" onClick={() => setNavbarOpen(!navbarOpen)}>Home</NavLink>
                 </p>
@@ -109,6 +120,9 @@ function App() {
       <div>
         <ToastContainer className="w-2/3 lg:w-1/5" />
       </div>
+      <div>
+        <button className="fixed bottom-0 right-0 mr-5 my-10 hover:animate-pulse"><FaArrowCircleUp color="#AC3BFF" size="2rem" onClick={scrollToTop} /></button>
+      </div>
       <Routes>
         <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
         <Route exact path='/home' element={<Home />} />
@@ -118,6 +132,7 @@ function App() {
         <Route exact path='/details/:id' element={<Details />} />
         <Route exact path='/userprofile/:id' element={<UserProfile />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

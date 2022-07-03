@@ -1,8 +1,9 @@
 import db from './Firebase';
 import { updateDoc, doc } from "firebase/firestore";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux'
 
 const Update = () => {
 	const [name, setName] = useState("");
@@ -11,6 +12,19 @@ const Update = () => {
 	const [date, setDate] = useState("");
 	const objectId = useParams();
 	const navigation = useNavigate()
+	const quotes = useSelector(state => state)
+	// console.log(quotes._document.data.value.mapValue.fields.uniqueId.stringValue)
+
+	const updateId = quotes.filter(item => item._document.data.value.mapValue.fields.uniqueId.stringValue === objectId.id)
+
+	useEffect(() => {
+		if (updateId) {
+			setName(updateId[0]._document.data.value.mapValue.fields.Name.stringValue)
+			setTitle(updateId[0]._document.data.value.mapValue.fields.Title.stringValue)
+			setDescription(updateId[0]._document.data.value.mapValue.fields.Description.stringValue)
+			setDate(updateId[0]._document.data.value.mapValue.fields.date.stringValue)
+		}
+	}, [])
 
 
 	const updateData = async (e) => {
@@ -24,7 +38,7 @@ const Update = () => {
 				date: date,
 			});
 			toast.success("Task Updated successfully", { theme: "dark" })
-			navigation('/home')
+			navigation('/profile')
 		}
 		catch (err) {
 			console.log(err);
@@ -93,7 +107,7 @@ const Update = () => {
 						</div>
 						<div className="md:w-1/3">
 							<button className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-								<Link to='/home'>Cancel</Link>
+								<Link to='/profile'>Cancel</Link>
 							</button>
 						</div>
 					</div>

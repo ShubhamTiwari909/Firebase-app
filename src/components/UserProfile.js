@@ -1,16 +1,16 @@
 import db from './Firebase';
 import { useParams } from 'react-router-dom'
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback,createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { toPng } from 'html-to-image';
 
 function UserProfile() {
   const [search, setSearch] = useState("")
-
   const userId = useParams();
+  const ref = createRef(null)
   const dispatch = useDispatch()
-
-  const todos = useSelector(state => state)
+  const quotes = useSelector(state => state)
 
   const handleSearch = e => {
     setSearch(e.target.value)
@@ -25,10 +25,28 @@ function UserProfile() {
     fetch();
   }, [dispatch, userId])
 
+  //image download section
+  const onButtonClick = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
+
+    toPng(ref.current)
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'Quotes.png'
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref])
+
   return (
     <div className="mt-30">
       <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-700 to-violet-800 text-center text-2xl mt-28">
-        {todos[0]._document.data.value.mapValue.fields.Name.stringValue} Profile
+        {quotes[0]._document.data.value.mapValue.fields.Name.stringValue} Profile
       </h2>
       <div className="my-5 grid place-content-center">
         <input type="text" className="py-1 px-3 border-b-2 rounded border-slate-700 transition-all duration-400 ease-out 
@@ -38,7 +56,7 @@ function UserProfile() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
         {
-          todos?.filter(function Search(task) {
+          quotes?.filter(function Search(task) {
             if (search === "") {
               return task
             }
@@ -51,6 +69,15 @@ function UserProfile() {
                 <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
                 <p className="mb-5 text-base text-gray-100 sm:text-lg dark:text-gray-100">{data._document.data.value.mapValue.fields.Description.stringValue}</p>
                 <p className="mb-5text-gray-300 text-sm dark:text-gray-300">{data._document.data.value.mapValue.fields.date.stringValue}</p>
+
+                <div className="w-full my-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
+                  <div className="text-left">
+                    <button
+                      onClick={onButtonClick}>
+                      Download
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           ))
