@@ -26,7 +26,7 @@ const Update = () => {
 			setQuoteCategory(updateId[0]._document.data.value.mapValue.fields.QuoteCategory.stringValue)
 			setDate(updateId[0]._document.data.value.mapValue.fields.date.stringValue)
 		}
-	}, [updateId])
+	}, [])
 
 
 	const updateData = async (e) => {
