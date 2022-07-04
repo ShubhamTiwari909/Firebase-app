@@ -14,7 +14,7 @@ import {
 const Read = ({ userId }) => {
 
     const [search, setSearch] = useState("")
-    const [bgColor, setBgColor] = useState("bg-slate-100")
+    const [bgColor, setBgColor] = useState("bg-slate-100");
     const [textColor, setTextColor] = useState("text-slate-800");
     const ref = createRef(null)
     const navigation = useNavigate()
@@ -89,10 +89,10 @@ const Read = ({ userId }) => {
 
                             <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                                 <div ref={ref}
-                                    className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8
-                `}>
+                                    className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8 `}
+                                    >
                                     <h5 className={`mb-2 text-3xl font-bold ${textColor}`}>{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
-                                    <p className={`mb-5 text-base ${textColor} sm:text-lg`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
+                                    <p className={`mb-5 text-base ${textColor} sm:text-lg break-words`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
                                     <p className={`mb-5 ${textColor} text-sm `}>{data._document.data.value.mapValue.fields.date.stringValue}</p>
                                     <h1 className={`my-3 ml-1 text-lg font-bold ${textColor}`}>
                                         By - {data._document.data.value.mapValue.fields.Name.stringValue}
@@ -120,6 +120,7 @@ const Read = ({ userId }) => {
                                             <button onClick={() => handleDelete(data._document.data.value.mapValue.fields.uniqueId.stringValue)}>Delete</button>
                                         </div>
                                     </div>
+                                  
                                 </div>
                                 <div className="justify-center items-center sm:flex sm:space-y-0 sm:space-x-4">
                                     <div className="w-full mb-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">

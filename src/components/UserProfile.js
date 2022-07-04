@@ -76,7 +76,7 @@ function UserProfile() {
                   className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8
                 `}>
                   <h5 className={`mb-2 text-3xl font-bold ${textColor}`}>{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
-                  <p className={`mb-5 text-base ${textColor} sm:text-lg`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
+                  <p className={`mb-5 text-base ${textColor} sm:text-lg break-words`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
                   <p className={`mb-5 ${textColor} text-sm `}>{data._document.data.value.mapValue.fields.date.stringValue}</p>
                   <h1 className={`my-3 ml-1 text-lg font-bold ${textColor}`}>
                     By - {data._document.data.value.mapValue.fields.Name.stringValue}
