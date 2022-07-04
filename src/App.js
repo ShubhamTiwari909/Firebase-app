@@ -18,6 +18,7 @@ import { FaArrowCircleUp } from 'react-icons/fa';
 function App() {
   const [googleSignin, setGoogleSignin] = useState(false)
   const [userId, setUserid] = useState("")
+  const [quoteCategory, setQuoteCategory] = useState("")
   const auth = getAuth()
   const googleAuthProvider = new GoogleAuthProvider()
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -80,24 +81,48 @@ function App() {
             id="example-navbar-danger"
           >
             <ul className="flex flex-col -mx-4 lg:flex-row list-none lg:ml-auto">
-              <li className="nav-item">
-                <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
-                  <NavLink to="/home" onClick={() => setNavbarOpen(!navbarOpen)}>Home</NavLink>
-                </p>
+              <li className="">
+                <div className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
+                  <NavLink to="/home">
+                    <form>
+                      <select name="category" value={quoteCategory} onChange={(e) => setQuoteCategory(e.target.value)}
+                        className="rounded-md mx-1 text-slate-800 p-0.5">
+                        <option value="Category" onClick={() => setNavbarOpen(!navbarOpen)}>Category</option>
+                        <option value="Alone" onClick={() => setNavbarOpen(!navbarOpen)}>Alone</option>
+                        <option value="Attitude" onClick={() => setNavbarOpen(!navbarOpen)}>Attitude</option>
+                        <option value="Friendship" onClick={() => setNavbarOpen(!navbarOpen)}>Friendship</option>
+                        <option value="Happiness" onClick={() => setNavbarOpen(!navbarOpen)}>Happiness</option>
+                        <option value="Inspiratational" onClick={() => setNavbarOpen(!navbarOpen)}>Inspiratational</option>
+                        <option value="Leadership" onClick={() => setNavbarOpen(!navbarOpen)}>Leadership</option>
+                        <option value="Life" onClick={() => setNavbarOpen(!navbarOpen)}>Life</option>
+                        <option value="Love" onClick={() => setNavbarOpen(!navbarOpen)}>Love</option>
+                        <option value="Men" onClick={() => setNavbarOpen(!navbarOpen)}>Men</option>
+                        <option value="Motivational" onClick={() => setNavbarOpen(!navbarOpen)}>Motivational</option>
+                        <option value="Positive" onClick={() => setNavbarOpen(!navbarOpen)}>Positive</option>
+                        <option value="Reading" onClick={() => setNavbarOpen(!navbarOpen)}>Reading</option>
+                        <option value="Strength" onClick={() => setNavbarOpen(!navbarOpen)}>Strength</option>
+                        <option value="Success" onClick={() => setNavbarOpen(!navbarOpen)}>Success</option>
+                        <option value="Time" onClick={() => setNavbarOpen(!navbarOpen)}>Time</option>
+                        <option value="Wisdom" onClick={() => setNavbarOpen(!navbarOpen)}>Wisdom</option>
+                        <option value="Women" onClick={() => setNavbarOpen(!navbarOpen)}>Women</option>
+                      </select>
+                    </form>
+                  </NavLink>
+                </div>
               </li>
               <li className="nav-item">
-                <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
+                <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2.5 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}>
                   <NavLink to="/profile" onClick={() => setNavbarOpen(!navbarOpen)}>Profile</NavLink>
                 </p>
               </li>
               <li className="nav-item">
-                <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}
+                <p className={`${googleSignin ? 'block' : 'hidden'} mt-2 px-3 py-2.5 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75`}
                 >
                   <NavLink to="/add" onClick={() => setNavbarOpen(!navbarOpen)}>Add</NavLink>
                 </p>
               </li>
               <li className="nav-item">
-                <p className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                <p className="px-3 py-2.5 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                   onClick={() => setNavbarOpen(!navbarOpen)}>
                   <button className={`${googleSignin ? 'hidden' : 'block'} flex space-x-2 bg-slate-100 px-3 py-2 rounded-md 
                   text-slate-800 border-2 border-indigo-400`}
@@ -125,7 +150,7 @@ function App() {
       </div>
       <Routes>
         <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
-        <Route exact path='/home' element={<Home />} />
+        <Route exact path='/home' element={<Home quoteCategory={quoteCategory} />} />
         <Route exact path='/profile' element={<Profile userId={userId} />} />
         <Route exact path='/add' element={<Add userId={userId} />} />
         <Route exact path='/update/:id' element={<Update />} />

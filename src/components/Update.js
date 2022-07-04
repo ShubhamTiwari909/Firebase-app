@@ -9,6 +9,7 @@ const Update = () => {
 	const [name, setName] = useState("");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
+	const [quoteCategory, setQuoteCategory] = useState("")
 	const [date, setDate] = useState("");
 	const objectId = useParams();
 	const navigation = useNavigate()
@@ -22,9 +23,10 @@ const Update = () => {
 			setName(updateId[0]._document.data.value.mapValue.fields.Name.stringValue)
 			setTitle(updateId[0]._document.data.value.mapValue.fields.Title.stringValue)
 			setDescription(updateId[0]._document.data.value.mapValue.fields.Description.stringValue)
+			setQuoteCategory(updateId[0]._document.data.value.mapValue.fields.QuoteCategory.stringValue)
 			setDate(updateId[0]._document.data.value.mapValue.fields.date.stringValue)
 		}
-	}, [])
+	}, [updateId])
 
 
 	const updateData = async (e) => {
@@ -82,6 +84,35 @@ const Update = () => {
 						<div className="md:w-2/3">
 							<textarea className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
 								value={description} onChange={(e) => setDescription(e.target.value)} required />
+						</div>
+					</div>
+					<div className="md:flex md:items-center mb-6">
+						<div className="md:w-1/3">
+							<label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-password">
+								Category
+							</label>
+						</div>
+						<div className="md:w-2/3">
+							<select className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+								value={quoteCategory} onChange={(e) => setQuoteCategory(e.target.value)} required>
+								<option value="Alone" >Alone</option>
+								<option value="Attitude" >Attitude</option>
+								<option value="Friendship" >Friendship</option>
+								<option value="Happiness" >Happiness</option>
+								<option value="Inspiratational" >Inspiratational</option>
+								<option value="Leadership" >Leadership</option>
+								<option value="Life" >Life</option>
+								<option value="Love" >Love</option>
+								<option value="Men" >Men</option>
+								<option value="Motivational" >Motivational</option>
+								<option value="Positive" >Positive</option>
+								<option value="Reading" >Reading</option>
+								<option value="Strength" >Strength</option>
+								<option value="Success" >Success</option>
+								<option value="Time" >Time</option>
+								<option value="Wisdom" >Wisdom</option>
+								<option value="Women" >Women</option>
+							</select>
 						</div>
 					</div>
 					<div className="flex justify-center items-center flex-col md:flex-row space-x-3">
