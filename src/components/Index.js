@@ -23,7 +23,6 @@ function Index() {
   const auth = getAuth()
   const googleAuthProvider = new GoogleAuthProvider()
 
-
   const navigation = useNavigate()
   const signUpWithGoogle = () => {
     signInWithPopup(auth, googleAuthProvider)
@@ -47,6 +46,7 @@ function Index() {
       theme: "dark"
     })
   }
+
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -74,7 +74,7 @@ function Index() {
         <Route exact path='/profile' element={<Profile userId={userId} />} />
         <Route exact path='/add' element={<Add userId={userId} />} />
         <Route exact path='/update/:id' element={<Update />} />
-        <Route exact path='/details/:id' element={<Details />} />
+        <Route exact path='/details/:id' element={<Details userId={userId} />} />
         <Route exact path='/userprofile/:id' element={<UserProfile />} />
       </Routes>
       <Footer />

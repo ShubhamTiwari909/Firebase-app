@@ -6,11 +6,9 @@ import DetailsView from './View/DetailsView';
 import {useParams} from 'react-router-dom'
 
 
-function Details() {
+function Details({userId}) {
   const taskId = useParams()
   const dispatch = useDispatch()
-
-
 
   useEffect(() => {
     async function fetch() {
@@ -26,7 +24,7 @@ function Details() {
   return (
     <div className="mt-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
-        <DetailsView />
+        <DetailsView userId={userId} />
       </div>
     </div>
   )

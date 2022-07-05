@@ -16,11 +16,14 @@ const Add = ({ userId }) => {
 	const uniqueCharacter = Characters[Math.floor(Math.random() * 25)]
 	const uniqueId = uniqueCharacter + uniqueNumber
 
+	const likes = 0
+	const likesUsers = ["13131113"]
+
 	return (
 	<div>
 		<QuoteForm name={name} title={title} description={description} quoteCategory={quoteCategory} date={date} 
 		setName={setName} setTitle={setTitle} setDescription={setDescription} setQuoteCategory={setQuoteCategory} setDate={setDate}
-		onSubmit={(event) => {  SaveData(event,uniqueId,userId,name,title,description,quoteCategory,date,navigation)  }}/>
+		onSubmit={(event) => {  SaveData(event,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers)  }}/>
 	</div>
 	);
 }

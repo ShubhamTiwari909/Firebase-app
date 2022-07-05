@@ -4,14 +4,58 @@ import {
     purpleGradientBackground, blueGradientBackground, greenGradientBackground
 } from '../BackgroundColors'
 import { NavLink } from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import onButtonClick from '../EventHandler/DownloadImage';
 
-function DetailsView() {
+import db from '../Firebase';
+import { updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { AiTwotoneDislike, AiFillLike } from 'react-icons/ai'
+import { FcLike } from 'react-icons/fc'
+
+function DetailsView({ userId }) {
     const ref = createRef(null)
     const quotes = useSelector(state => state)
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
+
+    const likesCount = async (e) => {
+        e.preventDefault();
+        const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.likesUsers.arrayValue.values;
+        const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
+        const querySnapshot3 = quotes[0]._document.data.value.mapValue.fields.likes.integerValue;
+        const filtered = querySnapshot1.filter(item => item.stringValue === userId);
+
+        if (filtered.length <= 0) {
+            const userRef = doc(db, "data", querySnapshot2);
+            await updateDoc(userRef, {
+                likesUsers: arrayUnion(userId),
+                likes: parseInt(querySnapshot3) + 1
+            });
+        }
+        else {
+            console.log("existing")
+        }
+
+    }
+
+    const dislikesCount = async (e) => {
+        e.preventDefault();
+        const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.likesUsers.arrayValue.values;
+        const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
+        const querySnapshot3 = quotes[0]._document.data.value.mapValue.fields.likes.integerValue;
+        const filtered = querySnapshot1.filter(item => item.stringValue === userId);
+        if (filtered.length > 0) {
+            const userRef = doc(db, "data", querySnapshot2);
+            await updateDoc(userRef, {
+                likesUsers: arrayRemove(userId),
+                likes: parseInt(querySnapshot3) - 1
+            });
+        }
+        else {
+            console.log("existing")
+        }
+
+    }
     return (
         <div>
             {
@@ -28,7 +72,6 @@ function DetailsView() {
                                     By - {data._document.data.value.mapValue.fields.Name.stringValue}
                                 </h1>
                             </div>
-
                             <div className="bg-slate-400 px-2 py-1.5 rounded-md my-3 flex space-x-3">
                                 <button onClick={() => darkBackground(setBgColor, setTextColor)} className="rounded-full p-2 bg-black"></button>
                                 <button onClick={() => lightBackground(setBgColor, setTextColor)} className="rounded-full p-2 bg-white"></button>
@@ -38,6 +81,10 @@ function DetailsView() {
                                 <button onClick={() => purpleGradientBackground(setBgColor, setTextColor)} className="rounded-full p-2 bg-gradient-to-r from-indigo-300 to-purple-400"></button>
                                 <button onClick={() => blueGradientBackground(setBgColor, setTextColor)} className="rounded-full p-2 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900"></button>
                                 <button onClick={() => greenGradientBackground(setBgColor, setTextColor)} className="rounded-full p-2 bg-gradient-to-r from-green-500 to-green-700"></button>
+                            </div>
+                            <div className="flex space-x-2 md:space-x-3">
+                                <FcLike size="1.5rem" />
+                                <p className="text-slate-200">{data._document.data.value.mapValue.fields.likes.integerValue}</p>
                             </div>
                             <div className="justify-center items-center mt-5 sm:flex sm:space-y-0 sm:space-x-4">
                                 <div className="w-full sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
@@ -62,7 +109,22 @@ function DetailsView() {
                                     </div>
                                 </div>
                             </div>
-
+                            <div className="flex gap-x-5 justify-content-center">
+                                <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
+                                    <div className="text-left">
+                                        <button onClick={(event) => likesCount(event)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
+                                            <AiFillLike color="cyan" size="1.7rem" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
+                                    <div className="text-left">
+                                        <button onClick={(event) => dislikesCount(event)} className="ring-1 ring-red-400 p-1 rounded-lg">
+                                            <AiTwotoneDislike color="crimson" size="1.7rem" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}

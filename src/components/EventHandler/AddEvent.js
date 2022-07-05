@@ -2,7 +2,8 @@ import db from '../Firebase';
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from 'react-toastify';
 
-const SaveData = async (e,uniqueId,userId,name,title,description,quoteCategory,date,navigation) => {
+
+const SaveData = async (e,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers) => {
     e.preventDefault();
     try {
         // Add data to the store
@@ -14,6 +15,8 @@ const SaveData = async (e,uniqueId,userId,name,title,description,quoteCategory,d
             Description: description,
             QuoteCategory: quoteCategory,
             date: date,
+            likes:likes,
+            likesUsers:likesUsers,
             uniqueId: uniqueId
         });
         toast.success("Task added successfully", { theme: "dark" })
