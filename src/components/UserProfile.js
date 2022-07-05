@@ -7,17 +7,17 @@ import UserProfileView from './View/UserProfileView';
 
 function UserProfile() {
 
-  const userId = useParams();
+  const userId1 = useParams();
   const dispatch = useDispatch()
 
   useEffect(() => {
     async function fetch() {
-      const querySnapshot1 = await getDocs(query(collection(db, "data"), where("userId", "==", userId.id)));
+      const querySnapshot1 = await getDocs(query(collection(db, "data"), where("userId", "==", userId1.id)));
 
       dispatch({ type: "FETCH", payload: querySnapshot1.docs })
     }
     fetch();
-  }, [dispatch, userId])
+  }, [dispatch, userId1])
 
 
   return (

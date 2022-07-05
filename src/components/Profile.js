@@ -8,7 +8,6 @@ import ProfileView from './View/ProfileView'
 const Read = ({ userId }) => {
 
     const dispatch = useDispatch()
-
     useEffect(() => {
         async function fetch() {
             const querySnapshot1 = await getDocs(query(collection(db, "data"), where("userId", "==", userId)));

@@ -1,13 +1,14 @@
-import { useState,createRef} from 'react';
+import { useState, createRef } from 'react';
 import { useSelector } from 'react-redux'
 import {
     darkBackground, lightBackground, indigoBackground, blueBackground, violetBackground,
     purpleGradientBackground, blueGradientBackground, greenGradientBackground
 } from '../BackgroundColors'
 import onButtonClick from '../EventHandler/DownloadImage';
+import { FcLike } from 'react-icons/fc'
 
 
-function UserProfileView() {
+function UserProfileView({ userId }) {
     const [search, setSearch] = useState("")
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
@@ -59,10 +60,15 @@ function UserProfileView() {
                                     <button onClick={() => greenGradientBackground(setBgColor, setTextColor)} className="rounded-full p-2 bg-gradient-to-r from-green-500 to-green-700"></button>
                                 </div>
 
+                                <div className="flex space-x-2 md:space-x-3">
+                                    <FcLike size="1.5rem" />
+                                    <p className="text-slate-200">{data._document.data.value.mapValue.fields.likes.integerValue}</p>
+                                </div>
+
                                 <div className="w-full my-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                     <div className="text-left">
                                         <button
-                                            onClick={onButtonClick}>
+                                            onClick={() => onButtonClick(ref)}>
                                             Download
                                         </button>
                                     </div>

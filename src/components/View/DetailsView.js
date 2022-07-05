@@ -6,11 +6,10 @@ import {
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import onButtonClick from '../EventHandler/DownloadImage';
-
-import db from '../Firebase';
-import { updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { AiTwotoneDislike, AiFillLike } from 'react-icons/ai'
 import { FcLike } from 'react-icons/fc'
+import likesCount from '../EventHandler/Like'
+import dislikesCount from '../EventHandler/Dislike'
 
 function DetailsView({ userId }) {
     const ref = createRef(null)
@@ -18,44 +17,7 @@ function DetailsView({ userId }) {
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
 
-    const likesCount = async (e) => {
-        e.preventDefault();
-        const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.likesUsers.arrayValue.values;
-        const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
-        const querySnapshot3 = quotes[0]._document.data.value.mapValue.fields.likes.integerValue;
-        const filtered = querySnapshot1.filter(item => item.stringValue === userId);
-
-        if (filtered.length <= 0) {
-            const userRef = doc(db, "data", querySnapshot2);
-            await updateDoc(userRef, {
-                likesUsers: arrayUnion(userId),
-                likes: parseInt(querySnapshot3) + 1
-            });
-        }
-        else {
-            console.log("existing")
-        }
-
-    }
-
-    const dislikesCount = async (e) => {
-        e.preventDefault();
-        const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.likesUsers.arrayValue.values;
-        const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
-        const querySnapshot3 = quotes[0]._document.data.value.mapValue.fields.likes.integerValue;
-        const filtered = querySnapshot1.filter(item => item.stringValue === userId);
-        if (filtered.length > 0) {
-            const userRef = doc(db, "data", querySnapshot2);
-            await updateDoc(userRef, {
-                likesUsers: arrayRemove(userId),
-                likes: parseInt(querySnapshot3) - 1
-            });
-        }
-        else {
-            console.log("existing")
-        }
-
-    }
+  
     return (
         <div>
             {
@@ -112,14 +74,14 @@ function DetailsView({ userId }) {
                             <div className="flex gap-x-5 justify-content-center">
                                 <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                     <div className="text-left">
-                                        <button onClick={(event) => likesCount(event)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
+                                        <button onClick={(event) => likesCount(event,quotes,userId)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
                                             <AiFillLike color="cyan" size="1.7rem" />
                                         </button>
                                     </div>
                                 </div>
                                 <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                     <div className="text-left">
-                                        <button onClick={(event) => dislikesCount(event)} className="ring-1 ring-red-400 p-1 rounded-lg">
+                                        <button onClick={(event) => dislikesCount(event,quotes,userId)} className="ring-1 ring-red-400 p-1 rounded-lg">
                                             <AiTwotoneDislike color="crimson" size="1.7rem" />
                                         </button>
                                     </div>
