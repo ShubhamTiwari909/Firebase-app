@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux'
 import ProfileView from './View/ProfileView'
 
 const Read = ({ userId }) => {
-
     const dispatch = useDispatch()
     useEffect(() => {
         async function fetch() {
@@ -19,7 +18,7 @@ const Read = ({ userId }) => {
 
     return (
         <div>
-           <ProfileView />
+           <ProfileView userId={userId} />
         </div>
 
     );

@@ -5,8 +5,9 @@ import { useEffect} from 'react';
 import { useDispatch } from 'react-redux'
 import UserProfileView from './View/UserProfileView';
 
-function UserProfile() {
+function UserProfile({userId}) {
 
+  console.log(userId);
   const userId1 = useParams();
   const dispatch = useDispatch()
 
@@ -22,7 +23,7 @@ function UserProfile() {
 
   return (
     <div className="mt-30">
-      <UserProfileView />
+      <UserProfileView userId={userId} />
     </div>
   )
 }

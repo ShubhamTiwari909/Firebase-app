@@ -1,15 +1,23 @@
-import React from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-function HomePageView({quoteCategory}) {
+function HomePageView({ quoteCategory }) {
     const quotes = useSelector(state => state)
+    const [search, setSearch] = useState("")
+
 
     return (
         <div>
             <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-center text-3xl mt-28">
                 {quoteCategory === "Category" ? "All " : quoteCategory} Quotes
             </h1>
+            <div className="my-5 grid place-content-center">
+                <input type="text" className="py-1 px-3 border-b-2 rounded border-slate-700 transition-all duration-400 ease-out 
+                hover:border-t-2 hover:border-l-2 hover:border-r-2 hover:rounded-md hover:border-l-indigo-400 hover:border-t-pink-400
+                hover:border-r-purple-400 hover:border-b-indigo-500
+                focus:outline-none" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🗯 Search" />
+            </div>
             <div className={`grid grid-cols-1 ${quotes.length <= 0 ? 'md:grid-cols-1 lg:grid-cols-1' : 'md:grid-cols-2 lg:grid-cols-3 '}  place-content-center gap-6 mx-10`}>
                 {
                     quotes.length <= 0
@@ -20,7 +28,14 @@ function HomePageView({quoteCategory}) {
                         </div>
 
                         :
-                        quotes?.map((data) => (
+                        quotes?.filter(function Search(task) {
+                            if (search === "") {
+                                return task
+                            }
+                            else {
+                                return task._document.data.value.mapValue.fields.Title.stringValue.includes(search.toUpperCase());
+                            }
+                        }).map((data) => (
                             <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                                 <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
                                 >

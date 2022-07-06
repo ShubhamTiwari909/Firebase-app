@@ -75,7 +75,7 @@ function Index() {
         <Route exact path='/add' element={<Add userId={userId} />} />
         <Route exact path='/update/:id' element={<Update />} />
         <Route exact path='/details/:id' element={<Details userId={userId} />} />
-        <Route exact path='/userprofile/:id' element={<UserProfile />} />
+        <Route exact path='/userprofile/:id' element={<UserProfile userId={userId} />} />
       </Routes>
       <Footer />
     </div>
