@@ -6,6 +6,7 @@ import HomePageView from './View/HomePageView'
 
 function Home({ quoteCategory }) {
     const dispatch = useDispatch()
+   
 
     useEffect(() => {
         async function fetch() {
@@ -15,8 +16,6 @@ function Home({ quoteCategory }) {
         }
         fetch();
     }, [dispatch, quoteCategory])
-
-
 
     return (
         <div className="mt-20">

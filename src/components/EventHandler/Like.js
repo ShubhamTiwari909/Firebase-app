@@ -2,6 +2,7 @@ import db from '../Firebase';
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 async function likesCount(e,quotes,userId) {
     e.preventDefault();
+    console.log(userId);
     const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.likesUsers.arrayValue.values;
     const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
     const querySnapshot3 = quotes[0]._document.data.value.mapValue.fields.likes.integerValue;

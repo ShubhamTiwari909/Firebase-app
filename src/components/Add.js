@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import QuoteForm from './Forms/QuoteForm';
 import SaveData from './EventHandler/AddEvent'
 
-const Add = ({ userId }) => {
+const Add = ({ userData }) => {
+	const userId = userData.uid;
 	const [name, setName] = useState("");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");

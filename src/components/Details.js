@@ -6,7 +6,10 @@ import DetailsView from './View/DetailsView';
 import {useParams} from 'react-router-dom'
 
 
-function Details({userId}) {
+function Details({userData}) {
+
+  const userId = userData.uid
+  console.log(userId)
   const taskId = useParams()
   const dispatch = useDispatch()
 

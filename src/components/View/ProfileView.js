@@ -16,12 +16,14 @@ import dislikesCount from '../EventHandler/Dislike'
 
 function ProfileView({ userId }) {
 
+    console.log(userId)
     const [search, setSearch] = useState("")
     const [bgColor, setBgColor] = useState("bg-slate-100");
     const [textColor, setTextColor] = useState("text-slate-800");
     const ref = createRef(null)
     const quotes = useSelector(state => state)
     const navigation = useNavigate()
+    console.log(quotes)
 
     return (
         <div>
@@ -48,9 +50,9 @@ function ProfileView({ userId }) {
                         else {
                             return task._document.data.value.mapValue.fields.Title.stringValue.includes(search.toUpperCase());
                         }
-                    }).map((data) => (
+                    }).map((data,index) => (
                         <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
-
+                            <h1 className="text-white">{index}</h1>
                             <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                                 <div ref={ref}
                                     className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8 `}
@@ -100,7 +102,7 @@ function ProfileView({ userId }) {
                                     <div className="w-full mb-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                         <div className="text-left">
                                             <button
-                                                onClick={() => onButtonClick(ref)}>
+                                                onClick={() => onButtonClick(ref,quotes)}>
                                                 Download
                                             </button>
                                         </div>

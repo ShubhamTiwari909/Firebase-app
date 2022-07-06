@@ -3,7 +3,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import { toPng } from 'html-to-image';
 //image download section
 const onButtonClick = async (ref, quotes) => {
-    console.log(quotes)
+    console.log(ref)
     if (ref.current === null) {
         return
     }
@@ -20,6 +20,7 @@ const onButtonClick = async (ref, quotes) => {
 
     const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.downloads.integerValue;
     const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
+    
     const userRef = doc(db, "data", querySnapshot2);
     await updateDoc(userRef, {
         downloads: parseInt(querySnapshot1) + 1

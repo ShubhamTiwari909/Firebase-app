@@ -8,26 +8,25 @@ import { useSelector } from 'react-redux'
 import onButtonClick from '../EventHandler/DownloadImage';
 import { AiTwotoneDislike, AiFillLike } from 'react-icons/ai'
 import { FcLike } from 'react-icons/fc'
-import {AiOutlineCloudDownload} from 'react-icons/ai'
+import { AiOutlineCloudDownload } from 'react-icons/ai'
 import likesCount from '../EventHandler/Like'
 import dislikesCount from '../EventHandler/Dislike'
 
 function DetailsView({ userId }) {
+    console.log(userId)
     const ref = createRef(null)
     const quotes = useSelector(state => state)
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
-
-
     return (
         <div>
             {
                 quotes?.map((data) => (
                     <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
-                        <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                            <div ref={ref}
-                                className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8
-                `}>
+                        <div id={data._document.data.value.mapValue.fields.uniqueId.stringValue}
+                            className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                            <div ref={ref} 
+                                className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8`}>
                                 <h5 className={`mb-2 text-3xl font-bold ${textColor}`}>{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
                                 <p className={`mb-3 text-base ${textColor} sm:text-lg break-words`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
                                 <p className={`mb-2 ${textColor} text-sm `}>{data._document.data.value.mapValue.fields.date.stringValue}</p>

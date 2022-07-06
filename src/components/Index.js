@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,24 +13,33 @@ import Details from './Details';
 import UserProfile from './UserProfile';
 import Footer from './Footer'
 import "tailwindcss/tailwind.css"
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import {
+  getAuth, GoogleAuthProvider, onAuthStateChanged,signInWithPopup, signOut
+}
+  from 'firebase/auth';
 import { FaArrowCircleUp } from 'react-icons/fa';
 
 function Index() {
   const [googleSignin, setGoogleSignin] = useState(false)
-  const [userId, setUserid] = useState("")
+  const [userData, setUserData] = useState()
   const [quoteCategory, setQuoteCategory] = useState("")
   const auth = getAuth()
   const googleAuthProvider = new GoogleAuthProvider()
-
+  console.log(userData)
   const navigation = useNavigate()
+
+  useEffect(() => {
+    onAuthStateChanged(auth,(current) => {
+      setUserData(current)
+      setGoogleSignin(true)
+    })
+  },[])
   const signUpWithGoogle = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then(result => {
         if (result !== []) {
           setGoogleSignin(true)
           navigation('/home')
-          setUserid(result.user.uid)
           toast.success("Signed in successfully", {
             theme: "dark"
           })
@@ -52,15 +61,15 @@ function Index() {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-     
     });
   }
+
 
   return (
     <div>
 
-      <Navbar googleSignin={googleSignin} quoteCategory={quoteCategory} setQuoteCategory={setQuoteCategory} 
-      signUpWithGoogle={signUpWithGoogle} signOutWithGoogle={signOutWithGoogle}  />
+      <Navbar googleSignin={googleSignin} quoteCategory={quoteCategory} setQuoteCategory={setQuoteCategory}
+        signUpWithGoogle={signUpWithGoogle} signOutWithGoogle={signOutWithGoogle} />
 
       <div>
         <ToastContainer className="w-2/3 lg:w-1/5" />
@@ -71,11 +80,11 @@ function Index() {
       <Routes>
         <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
         <Route exact path='/home' element={<Home quoteCategory={quoteCategory} />} />
-        <Route exact path='/profile' element={<Profile userId={userId} />} />
-        <Route exact path='/add' element={<Add userId={userId} />} />
+        <Route exact path='/profile' element={<Profile userData={userData} />} />
+        <Route exact path='/add' element={<Add userData={userData} />} />
         <Route exact path='/update/:id' element={<Update />} />
-        <Route exact path='/details/:id' element={<Details userId={userId} />} />
-        <Route exact path='/userprofile/:id' element={<UserProfile userId={userId} />} />
+        <Route exact path='/details/:id' element={<Details userData={userData} />} />
+        <Route exact path='/userprofile/:id' element={<UserProfile userData={userData} />} />
       </Routes>
       <Footer />
     </div>

@@ -12,8 +12,9 @@ import likesCount from '../EventHandler/Like'
 import dislikesCount from '../EventHandler/Dislike'
 
 
-function UserProfileView({ userId }) {
-    console.log(userId)
+function UserProfileView({ userData }) {
+
+    const userId = userData.uid
     const [search, setSearch] = useState("")
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
@@ -79,7 +80,7 @@ function UserProfileView({ userId }) {
                                 <div className="w-full my-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                     <div className="text-left">
                                         <button
-                                            onClick={() => onButtonClick(ref)}>
+                                            onClick={() => onButtonClick(ref,quotes)}>
                                             Download
                                         </button>
                                     </div>
@@ -87,14 +88,14 @@ function UserProfileView({ userId }) {
                                 <div className="flex gap-x-5 justify-content-center">
                                     <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                         <div className="text-left">
-                                            <button onClick={(event) => likesCount(event, quotes, userId)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
+                                            <button onClick={(event) => likesCount(event, quotes,userId)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
                                                 <AiFillLike color="cyan" size="1.7rem" />
                                             </button>
                                         </div>
                                     </div>
                                     <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                         <div className="text-left">
-                                            <button onClick={(event) => dislikesCount(event, quotes, userId)} className="ring-1 ring-red-400 p-1 rounded-lg">
+                                            <button onClick={(event) => dislikesCount(event, quotes,userId)} className="ring-1 ring-red-400 p-1 rounded-lg">
                                                 <AiTwotoneDislike color="crimson" size="1.7rem" />
                                             </button>
                                         </div>
