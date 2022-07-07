@@ -41,14 +41,14 @@ function ProfileView({ userId }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
                 {
-                  quotes && userId !== null && quotes?.filter(function Search(task) {
+                    quotes && userId !== null && quotes?.filter(function Search(task) {
                         if (search === "") {
                             return task
                         }
                         else {
                             return task._document.data.value.mapValue.fields.Title.stringValue.includes(search.toUpperCase());
                         }
-                    }).map((data,index) => (
+                    }).map((data, index) => (
                         <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                             <h1 className="text-white">{index}</h1>
                             <div className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -100,7 +100,7 @@ function ProfileView({ userId }) {
                                     <div className="w-full mb-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                         <div className="text-left">
                                             <button
-                                                onClick={() => onButtonClick(ref,quotes)}>
+                                                onClick={() => onButtonClick(ref, quotes)}>
                                                 Download
                                             </button>
                                         </div>
@@ -109,20 +109,33 @@ function ProfileView({ userId }) {
                                 <div className="flex gap-x-5 justify-content-center">
                                     <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                         <div className="text-left">
-                                            <button onClick={(event) => likesCount(event, quotes, userId)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
+                                            <button onClick={(event) => {
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 1200);
+                                                likesCount(event, data._document.data.value.mapValue.fields.likesUsers.arrayValue.values,
+                                                    data._document.data.value.mapValue.fields.uniqueId.stringValue,
+                                                    data._document.data.value.mapValue.fields.likes.integerValue, userId)
+                                            }} className="ring-1 ring-cyan-400 p-1 rounded-lg">
                                                 <AiFillLike color="cyan" size="1.7rem" />
                                             </button>
                                         </div>
                                     </div>
                                     <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                         <div className="text-left">
-                                            <button onClick={(event) => dislikesCount(event, quotes, userId)} className="ring-1 ring-red-400 p-1 rounded-lg">
+                                            <button onClick={(event) => {
+                                                dislikesCount(event, data._document.data.value.mapValue.fields.likesUsers.arrayValue.values,
+                                                    data._document.data.value.mapValue.fields.uniqueId.stringValue,
+                                                    data._document.data.value.mapValue.fields.likes.integerValue, userId)
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 1200);
+                                            }} className="ring-1 ring-red-400 p-1 rounded-lg">
                                                 <AiTwotoneDislike color="crimson" size="1.7rem" />
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     ))

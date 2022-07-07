@@ -25,7 +25,7 @@ function DetailsView({ userId }) {
                     <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                         <div id={data._document.data.value.mapValue.fields.uniqueId.stringValue}
                             className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                            <div ref={ref} 
+                            <div ref={ref}
                                 className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8`}>
                                 <h5 className={`mb-2 text-3xl font-bold ${textColor}`}>{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
                                 <p className={`mb-3 text-base ${textColor} sm:text-lg break-words`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
@@ -80,14 +80,29 @@ function DetailsView({ userId }) {
                             <div className="flex gap-x-5 justify-content-center">
                                 <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                     <div className="text-left">
-                                        <button onClick={(event) => likesCount(event, quotes, userId)} className="ring-1 ring-cyan-400 p-1 rounded-lg">
+                                        <button onClick={(event) => {
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 1200);
+                                            likesCount(event, data._document.data.value.mapValue.fields.likesUsers.arrayValue.values,
+                                                data._document.data.value.mapValue.fields.uniqueId.stringValue,
+                                                data._document.data.value.mapValue.fields.likes.integerValue, userId)
+                                        }} className="ring-1 ring-cyan-400 p-1 rounded-lg">
                                             <AiFillLike color="cyan" size="1.7rem" />
                                         </button>
                                     </div>
                                 </div>
                                 <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                     <div className="text-left">
-                                        <button onClick={(event) => dislikesCount(event, quotes, userId)} className="ring-1 ring-red-400 p-1 rounded-lg">
+                                        <button onClick={(event) => {
+                                            dislikesCount(event, data._document.data.value.mapValue.fields.likesUsers.arrayValue.values,
+                                                data._document.data.value.mapValue.fields.uniqueId.stringValue,
+                                                data._document.data.value.mapValue.fields.likes.integerValue, userId)
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 1200);
+
+                                        }} className="ring-1 ring-red-400 p-1 rounded-lg">
                                             <AiTwotoneDislike color="crimson" size="1.7rem" />
                                         </button>
                                     </div>

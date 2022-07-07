@@ -1,12 +1,13 @@
 import db from '../Firebase';
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
-async function likesCount(e,quotes,userId) {
+async function likesCount(e,likesUsers,uniqueId,likes,userId) {
     e.preventDefault();
     console.log(userId);
-    const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.likesUsers.arrayValue.values;
-    const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
-    const querySnapshot3 = quotes[0]._document.data.value.mapValue.fields.likes.integerValue;
+    const querySnapshot1 = likesUsers
+    const querySnapshot2 = uniqueId
+    const querySnapshot3 = likes
     const filtered = querySnapshot1.filter(item => item.stringValue === userId)
+    console.log(querySnapshot2)
     if (filtered.length <= 0) {
         const userRef = doc(db, "data", querySnapshot2);
         await updateDoc(userRef, {
