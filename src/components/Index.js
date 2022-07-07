@@ -21,7 +21,7 @@ import { FaArrowCircleUp } from 'react-icons/fa';
 
 function Index() {
   const [googleSignin, setGoogleSignin] = useState(false)
-  const [userData, setUserData] = useState()
+  const [userData, setUserData] = useState(null)
   const [quoteCategory, setQuoteCategory] = useState("")
   const auth = getAuth()
   const googleAuthProvider = new GoogleAuthProvider()
@@ -29,16 +29,25 @@ function Index() {
   const navigation = useNavigate()
 
   useEffect(() => {
-    onAuthStateChanged(auth,(current) => {
-      setUserData(current)
-      setGoogleSignin(true)
-    })
-  },[])
+    if(!googleSignin){
+      setTimeout(() => {
+        onAuthStateChanged(auth,(current) => {
+          setUserData(current)
+          setGoogleSignin(true)
+        })
+      }, 2000);
+      console.log("found auth state")
+    }
+    else{
+      console.log("not found")
+    }
+  },[userData,googleSignin])
   const signUpWithGoogle = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then(result => {
         if (result !== []) {
           setGoogleSignin(true)
+          setUserData(result)
           navigation('/home')
           toast.success("Signed in successfully", {
             theme: "dark"

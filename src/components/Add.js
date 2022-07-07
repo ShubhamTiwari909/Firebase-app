@@ -4,7 +4,7 @@ import QuoteForm from './Forms/QuoteForm';
 import SaveData from './EventHandler/AddEvent'
 
 const Add = ({ userData }) => {
-	const userId = userData.uid;
+	const userId = userData !== null ? userData.uid : ""
 	const [name, setName] = useState("");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");

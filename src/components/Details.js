@@ -8,7 +8,7 @@ import {useParams} from 'react-router-dom'
 
 function Details({userData}) {
 
-  const userId = userData.uid
+  const userId = userData !== null ? userData.uid : ""
   console.log(userId)
   const taskId = useParams()
   const dispatch = useDispatch()

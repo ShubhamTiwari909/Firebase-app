@@ -14,7 +14,8 @@ const Update = () => {
 	const navigation = useNavigate()
 	const quotes = useSelector(state => state)
 
-	const updateId = quotes.filter(item => item._document.data.value.mapValue.fields.uniqueId.stringValue === objectId.id)
+	console.log(quotes)
+	const updateId = quotes.length > 0 ? quotes.filter(item => item._document.data.value.mapValue.fields.uniqueId.stringValue === objectId.id) : ""
 
 	useEffect(() => {
 		if (updateId) {

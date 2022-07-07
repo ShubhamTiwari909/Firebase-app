@@ -13,18 +13,18 @@ import dislikesCount from '../EventHandler/Dislike'
 
 
 function UserProfileView({ userData }) {
-
-    const userId = userData.uid
+    const userId = userData !== null ? userData.uid : ""
     const [search, setSearch] = useState("")
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
     const quotes = useSelector(state => state)
     const ref = createRef(null)
+    console.log(quotes)
 
     return (
         <div>
             <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-700 to-violet-800 text-center text-2xl mt-28">
-                {quotes[0]._document.data.value.mapValue.fields.Name.stringValue} Profile
+                {quotes.length > 0 && quotes[0]._document.data.value.mapValue.fields.Name.stringValue} Profile
             </h2>
             <div className="my-5 grid place-content-center">
                 <input type="text" className="py-1 px-3 border-b-2 rounded border-slate-700 transition-all duration-400 ease-out 
@@ -34,7 +34,7 @@ function UserProfileView({ userData }) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
                 {
-                    quotes?.filter(function Search(task) {
+                   quotes && userId !== null && quotes?.filter(function Search(task) {
                         if (search === "") {
                             return task
                         }

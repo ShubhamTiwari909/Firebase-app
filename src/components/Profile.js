@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux'
 import ProfileView from './View/ProfileView'
 
 const Read = ({ userData }) => {
-    console.log(userData)
-    const userId = userData.uid
+   
+    const userId = userData !== null ? userData.uid : ""
     const dispatch = useDispatch()
     useEffect(() => {
         async function fetch() {

@@ -16,14 +16,12 @@ import dislikesCount from '../EventHandler/Dislike'
 
 function ProfileView({ userId }) {
 
-    console.log(userId)
     const [search, setSearch] = useState("")
     const [bgColor, setBgColor] = useState("bg-slate-100");
     const [textColor, setTextColor] = useState("text-slate-800");
     const ref = createRef(null)
     const quotes = useSelector(state => state)
     const navigation = useNavigate()
-    console.log(quotes)
 
     return (
         <div>
@@ -43,7 +41,7 @@ function ProfileView({ userId }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
                 {
-                    quotes?.filter(function Search(task) {
+                  quotes && userId !== null && quotes?.filter(function Search(task) {
                         if (search === "") {
                             return task
                         }
