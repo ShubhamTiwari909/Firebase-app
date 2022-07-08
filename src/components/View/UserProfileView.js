@@ -1,4 +1,4 @@
-import { useState, createRef } from 'react';
+import { useState, createRef, useRef } from 'react';
 import { useSelector } from 'react-redux'
 import {
     darkBackground, lightBackground, indigoBackground, blueBackground, violetBackground,
@@ -18,8 +18,8 @@ function UserProfileView({ userData }) {
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
     const quotes = useSelector(state => state)
-    const ref = createRef(null)
-    console.log(quotes)
+    const ref = useRef([])
+    ref.current = quotes.map((element, i) => ref.current[i] ?? createRef());
 
     return (
         <div>
@@ -41,11 +41,11 @@ function UserProfileView({ userData }) {
                         else {
                             return task._document.data.value.mapValue.fields.Title.stringValue.includes(search.toUpperCase());
                         }
-                    }).map((data) => (
+                    }).map((data, i) => (
                         <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                             <div className="p-4 w-full text-center bg-stone-700 rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
 
-                                <div ref={ref}
+                                <div ref={ref.current[i]}
                                     className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8
                 `}>
                                     <h5 className={`mb-2 text-3xl font-bold ${textColor}`}>{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
@@ -80,7 +80,14 @@ function UserProfileView({ userData }) {
                                 <div className="w-full my-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                     <div className="text-left">
                                         <button
-                                            onClick={() => onButtonClick(ref, quotes)}>
+                                            onClick={() => {
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 1200);
+                                                onButtonClick(ref.current[i], data._document.data.value.mapValue.fields.downloads.integerValue,
+                                                    data._document.data.value.mapValue.fields.uniqueId.stringValue)
+                                            }
+                                            }>
                                             Download
                                         </button>
                                     </div>
@@ -103,9 +110,9 @@ function UserProfileView({ userData }) {
                                     <div className="w-full mb-4 sm:w-auto inline-flex items-center justify-center">
                                         <div className="text-left">
                                             <button onClick={(event) => {
-                                               dislikesCount(event, data._document.data.value.mapValue.fields.likesUsers.arrayValue.values,
-                                                data._document.data.value.mapValue.fields.uniqueId.stringValue,
-                                                data._document.data.value.mapValue.fields.likes.integerValue, userId)
+                                                dislikesCount(event, data._document.data.value.mapValue.fields.likesUsers.arrayValue.values,
+                                                    data._document.data.value.mapValue.fields.uniqueId.stringValue,
+                                                    data._document.data.value.mapValue.fields.likes.integerValue, userId)
                                                 setTimeout(() => {
                                                     window.location.reload();
                                                 }, 1200);

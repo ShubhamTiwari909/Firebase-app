@@ -13,7 +13,6 @@ import likesCount from '../EventHandler/Like'
 import dislikesCount from '../EventHandler/Dislike'
 
 function DetailsView({ userId }) {
-    console.log(userId)
     const ref = createRef(null)
     const quotes = useSelector(state => state)
     const [bgColor, setBgColor] = useState("bg-slate-100")
@@ -71,7 +70,13 @@ function DetailsView({ userId }) {
                                 <div className="w-full mb-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                     <div className="text-left">
                                         <button
-                                            onClick={() => onButtonClick(ref, quotes)}>
+                                            onClick={() => {
+                                                setTimeout(() => {
+                                                    window.location.reload();
+                                                }, 400);
+                                                onButtonClick(ref, data._document.data.value.mapValue.fields.downloads.integerValue,
+                                                    data._document.data.value.mapValue.fields.uniqueId.stringValue)
+                                            }}>
                                             Download
                                         </button>
                                     </div>

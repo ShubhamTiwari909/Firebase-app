@@ -2,8 +2,7 @@ import db from '../Firebase';
 import { updateDoc, doc } from "firebase/firestore";
 import { toPng } from 'html-to-image';
 //image download section
-const onButtonClick = async (ref, quotes) => {
-    console.log(ref)
+const onButtonClick = async (ref, downloads,uniqueId) => {
     if (ref.current === null) {
         return
     }
@@ -17,13 +16,10 @@ const onButtonClick = async (ref, quotes) => {
         .catch((err) => {
             console.log(err)
         })
-
-    const querySnapshot1 = quotes[0]._document.data.value.mapValue.fields.downloads.integerValue;
-    const querySnapshot2 = quotes[0]._document.data.value.mapValue.fields.uniqueId.stringValue;
     
-    const userRef = doc(db, "data", querySnapshot2);
+    const userRef = doc(db, "data", uniqueId);
     await updateDoc(userRef, {
-        downloads: parseInt(querySnapshot1) + 1
+        downloads: parseInt(downloads) + 1
     });
 }
 
