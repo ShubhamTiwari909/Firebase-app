@@ -4,9 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import HomePageView from './View/HomePageView'
 
-function Home({ quoteCategory }) {
+function Home({ quoteCategory,userData }) {
     const dispatch = useDispatch()
-   
 
     useEffect(() => {
         async function fetch() {
@@ -19,7 +18,7 @@ function Home({ quoteCategory }) {
 
     return (
         <div className="mt-20">
-           <HomePageView quoteCategory={quoteCategory} />
+           <HomePageView quoteCategory={quoteCategory} userData={userData !== null ? userData : ""} />
         </div>
     )
 }

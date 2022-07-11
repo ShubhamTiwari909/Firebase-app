@@ -14,6 +14,7 @@ import dislikesCount from '../EventHandler/Dislike'
 
 function UserProfileView({ userData }) {
     const userId = userData !== null ? userData.uid : ""
+    const userName = userData !== null ? userData.displayName : ""
     const [search, setSearch] = useState("")
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
@@ -24,7 +25,7 @@ function UserProfileView({ userData }) {
     return (
         <div>
             <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-700 to-violet-800 text-center text-2xl mt-28">
-                {quotes.length > 0 && quotes[0]._document.data.value.mapValue.fields.Name.stringValue} Profile
+                {userName} Profile
             </h2>
             <div className="my-5 grid place-content-center">
                 <input type="text" className="py-1 px-3 border-b-2 rounded border-slate-700 transition-all duration-400 ease-out 

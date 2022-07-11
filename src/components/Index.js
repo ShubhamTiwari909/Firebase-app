@@ -25,7 +25,6 @@ function Index() {
   const [quoteCategory, setQuoteCategory] = useState("")
   const auth = getAuth()
   const googleAuthProvider = new GoogleAuthProvider()
-  console.log(userData)
   const navigation = useNavigate()
 
   useEffect(() => {
@@ -36,7 +35,6 @@ function Index() {
           setGoogleSignin(true)
         })
       }, 2000);
-      console.log("found auth state")
     }
     else{
       console.log("not found")
@@ -88,7 +86,7 @@ function Index() {
       </div>
       <Routes>
         <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
-        <Route exact path='/home' element={<Home quoteCategory={quoteCategory} />} />
+        <Route exact path='/home' element={<Home quoteCategory={quoteCategory} userData={userData} />} />
         <Route exact path='/profile' element={<Profile userData={userData} />} />
         <Route exact path='/add' element={<Add userData={userData} />} />
         <Route exact path='/update/:id' element={<Update />} />

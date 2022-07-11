@@ -20,12 +20,13 @@ const Add = ({ userData }) => {
 	const likes = 0
 	const likesUsers = ["13131113"]
 	const downloads = 0
+	const comments = []
 
 	return (
 	<div>
 		<QuoteForm name={name} title={title} description={description} quoteCategory={quoteCategory} date={date} 
 		setName={setName} setTitle={setTitle} setDescription={setDescription} setQuoteCategory={setQuoteCategory} setDate={setDate}
-		onSubmit={(event) => {  SaveData(event,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers,downloads)  }}/>
+		onSubmit={(event) => {  SaveData(event,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers,downloads,comments)  }}/>
 	</div>
 	);
 }

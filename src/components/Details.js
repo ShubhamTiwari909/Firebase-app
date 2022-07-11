@@ -9,6 +9,7 @@ import {useParams} from 'react-router-dom'
 function Details({userData}) {
 
   const userId = userData !== null ? userData.uid : ""
+  const username = userData !== null ? userData.displayName : ""
   const taskId = useParams()
   const dispatch = useDispatch()
 
@@ -26,7 +27,7 @@ function Details({userData}) {
   return (
     <div className="mt-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-6 mx-10">
-        <DetailsView userId={userId} />
+        <DetailsView userId={userId} username={username} />
       </div>
     </div>
   )

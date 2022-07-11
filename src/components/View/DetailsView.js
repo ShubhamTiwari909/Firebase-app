@@ -1,4 +1,4 @@
-import { useState, createRef } from 'react';
+import { useState,useRef, createRef } from 'react';
 import {
     darkBackground, lightBackground, indigoBackground, blueBackground, violetBackground,
     purpleGradientBackground, blueGradientBackground, greenGradientBackground
@@ -11,20 +11,22 @@ import { FcLike } from 'react-icons/fc'
 import { AiOutlineCloudDownload } from 'react-icons/ai'
 import likesCount from '../EventHandler/Like'
 import dislikesCount from '../EventHandler/Dislike'
+import CommentsView from './CommentsView';
 
-function DetailsView({ userId }) {
-    const ref = createRef(null)
+function DetailsView({ userId,username }) {
+    const ref = useRef([])
     const quotes = useSelector(state => state)
+    ref.current = quotes.map((element, i) => ref.current[i] ?? createRef());
     const [bgColor, setBgColor] = useState("bg-slate-100")
     const [textColor, setTextColor] = useState("text-slate-800");
     return (
         <div>
             {
-                quotes?.map((data) => (
+                quotes?.map((data,i) => (
                     <div key={data._document.data.value.mapValue.fields.uniqueId.stringValue} className="my-10">
                         <div id={data._document.data.value.mapValue.fields.uniqueId.stringValue}
                             className="p-4 w-full text-center bg-black rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                            <div ref={ref}
+                            <div ref={ref.current[i]}
                                 className={`p-4 w-full text-center ${bgColor} rounded-lg border shadow-md sm:p-8`}>
                                 <h5 className={`mb-2 text-3xl font-bold ${textColor}`}>{data._document.data.value.mapValue.fields.Title.stringValue}</h5>
                                 <p className={`mb-3 text-base ${textColor} sm:text-lg break-words`}>{data._document.data.value.mapValue.fields.Description.stringValue}</p>
@@ -53,6 +55,9 @@ function DetailsView({ userId }) {
                                     <p className="text-slate-200">{data._document.data.value.mapValue.fields.downloads.integerValue}</p>
                                 </div>
                             </div>
+                            {/* <div className="">
+                                <CommentsView uniqueId={data._document.data.value.mapValue.fields.uniqueId.stringValue} username={username} />
+                            </div> */}
                             <div className="justify-center items-center mt-2 sm:flex sm:space-y-0 sm:space-x-4">
                                 <div className="w-full sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">
                                     <div className="text-left">
@@ -73,8 +78,8 @@ function DetailsView({ userId }) {
                                             onClick={() => {
                                                 setTimeout(() => {
                                                     window.location.reload();
-                                                }, 400);
-                                                onButtonClick(ref, data._document.data.value.mapValue.fields.downloads.integerValue,
+                                                }, 1200);
+                                                onButtonClick(ref.current[i], data._document.data.value.mapValue.fields.downloads.integerValue,
                                                     data._document.data.value.mapValue.fields.uniqueId.stringValue)
                                             }}>
                                             Download
