@@ -10,9 +10,9 @@ import { FcLike } from 'react-icons/fc'
 import { AiOutlineCloudDownload } from 'react-icons/ai'
 import likesCount from '../EventHandler/Like'
 import dislikesCount from '../EventHandler/Dislike'
+import CommentsView from './CommentsView'
 
-
-function UserProfileView({ userData }) {
+function UserProfileView({ userData, username }) {
     const userId = userData !== null ? userData.uid : ""
     const userName = userData !== null ? userData.displayName : ""
     const [search, setSearch] = useState("")
@@ -76,6 +76,10 @@ function UserProfileView({ userData }) {
                                         <AiOutlineCloudDownload size="1.5rem" color="white" />
                                         <p className="text-slate-200">{data._document.data.value.mapValue.fields.downloads.integerValue}</p>
                                     </div>
+                                </div>
+
+                                <div className="">
+                                    <CommentsView uniqueId={data._document.data.value.mapValue.fields.uniqueId.stringValue} username={username} />
                                 </div>
 
                                 <div className="w-full my-4 sm:w-auto bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-gray-200 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-gray-100">

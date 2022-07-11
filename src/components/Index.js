@@ -39,7 +39,7 @@ function Index() {
     else{
       console.log("not found")
     }
-  },[userData,googleSignin])
+  },[googleSignin])
   const signUpWithGoogle = () => {
     signInWithPopup(auth, googleAuthProvider)
       .then(result => {
@@ -57,6 +57,7 @@ function Index() {
   const signOutWithGoogle = () => {
     signOut(auth, googleAuthProvider).then("sign out successfully")
     setGoogleSignin(false)
+    setUserData(null)
     navigation('/')
     toast.error("Signed out", {
       theme: "dark"
@@ -76,7 +77,7 @@ function Index() {
     <div>
 
       <Navbar googleSignin={googleSignin} quoteCategory={quoteCategory} setQuoteCategory={setQuoteCategory}
-        signUpWithGoogle={signUpWithGoogle} signOutWithGoogle={signOutWithGoogle} />
+        signUpWithGoogle={signUpWithGoogle} signOutWithGoogle={signOutWithGoogle} userData={userData} />
 
       <div>
         <ToastContainer className="w-2/3 lg:w-1/5" />

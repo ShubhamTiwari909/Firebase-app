@@ -12,11 +12,11 @@ async function commentsEvent(e,commmentInput, uniqueId,username) {
   const querySnapshot2 = uniqueId
 
   const newComment = {
+    uniqueId:uniqueId,
     comment: commmentInput,
     commentId: commentId,
     username:username,
   }
-  console.log(newComment);
   const userRef = doc(db, "data", querySnapshot2);
   
   await updateDoc(userRef, {

@@ -16,7 +16,6 @@ async function commentsReply(e, commentId, replyInput, username,uniqueId) {
         commentId: commentId,
         username: username,
     }
-    console.log(newReply);
     const userRef = doc(db, "data", querySnapshot2);
 
     await updateDoc(userRef, {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 
-function Navbar({ googleSignin,quoteCategory,setQuoteCategory,signUpWithGoogle,signOutWithGoogle}) {
+function Navbar({ googleSignin, quoteCategory, setQuoteCategory, signUpWithGoogle, signOutWithGoogle, userData }) {
     const [navbarOpen, setNavbarOpen] = useState(false);
 
     return (
@@ -74,16 +74,14 @@ function Navbar({ googleSignin,quoteCategory,setQuoteCategory,signUpWithGoogle,s
                             <li className="nav-item">
                                 <p className="px-3 py-2.5 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                                     onClick={() => setNavbarOpen(!navbarOpen)}>
-                                    <button className={`${googleSignin ? 'hidden' : 'block'} flex space-x-2 bg-slate-100 px-3 py-2 rounded-md 
-                  text-slate-800 border-2 border-indigo-400`}
-                                        onClick={signUpWithGoogle}>
+                                    <button className={`${userData === null
+                                        ?
+                                        'bg-slate-100 border-indigo-400 text-slate-800'
+                                        :
+                                        'bg-rose-500 border-red-300 text-slate-100'
+                                    } flex space-x-2  px-3 py-2 rounded-md  border-2 `} onClick={userData === null ? signUpWithGoogle : signOutWithGoogle}>
                                         <FcGoogle size="1rem" />
-                                        <p>Sign in with Google</p>
-                                    </button>
-                                    <button className={`${googleSignin ? 'block' : 'hidden'} flex space-x-2 bg-rose-500 px-3 py-2 rounded-md 
-                  text-slate-100 border-2 border-red-300`} onClick={signOutWithGoogle}>
-                                        <FcGoogle size="1rem" />
-                                        <p>Sign out</p>
+                                        <p> {userData === null ? "Sign in" : "Signout"}</p>
                                     </button>
                                 </p>
                             </li>

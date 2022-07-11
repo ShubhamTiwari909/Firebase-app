@@ -20,7 +20,7 @@ function HomePageView({ quoteCategory,userData }) {
             </div>
             <div className={`grid grid-cols-1 ${quotes.length <= 0 ? 'md:grid-cols-1 lg:grid-cols-1' : 'md:grid-cols-2 lg:grid-cols-3 '}  place-content-center gap-6 mx-10`}>
                 {
-                    quotes.length <= 0
+                   quotes.length <= 0
                         ?
 
                         <div className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-pink-700 flex justify-center text-4xl my-10">

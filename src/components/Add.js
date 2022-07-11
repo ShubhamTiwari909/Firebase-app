@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QuoteForm from './Forms/QuoteForm';
 import SaveData from './EventHandler/AddEvent'
+import NoSignIn from './Images/NoQuotes1.png'
 
 const Add = ({ userData }) => {
 	const userId = userData !== null ? userData.uid : ""
@@ -24,11 +25,17 @@ const Add = ({ userData }) => {
 	const replies = []
 
 	return (
-	<div>
-		<QuoteForm name={name} title={title} description={description} quoteCategory={quoteCategory} date={date} 
-		setName={setName} setTitle={setTitle} setDescription={setDescription} setQuoteCategory={setQuoteCategory} setDate={setDate}
-		onSubmit={(event) => {  SaveData(event,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers,downloads,comments,replies)  }}/>
-	</div>
+		<div>
+			{userData === null ?
+				<div>
+					<img src={NoSignIn} alt="Sign in to write a quote" />
+				</div>
+				:
+				<QuoteForm name={name} title={title} description={description} quoteCategory={quoteCategory} date={date}
+					setName={setName} setTitle={setTitle} setDescription={setDescription} setQuoteCategory={setQuoteCategory} setDate={setDate}
+					onSubmit={(event) => { SaveData(event, uniqueId, userId, name, title, description, quoteCategory, date, navigation, likes, likesUsers, downloads, comments, replies) }} />
+			}
+		</div>
 	);
 }
 

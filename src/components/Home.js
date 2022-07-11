@@ -3,9 +3,12 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import HomePageView from './View/HomePageView'
+import NoQuotes from './Images/NoQuotes2.png'
 
-function Home({ quoteCategory,userData }) {
+
+function Home({ quoteCategory, userData }) {
     const dispatch = useDispatch()
+
 
     useEffect(() => {
         async function fetch() {
@@ -16,9 +19,16 @@ function Home({ quoteCategory,userData }) {
         fetch();
     }, [dispatch, quoteCategory])
 
+
     return (
-        <div className="mt-20">
-           <HomePageView quoteCategory={quoteCategory} userData={userData !== null ? userData : ""} />
+        <div>
+            {userData === null ? 
+            <div>
+                <img src={NoQuotes} alt="Sign in to read a quote" />
+            </div>
+            :
+            <HomePageView className="mt-20" quoteCategory={quoteCategory} userData={userData !== null ? userData : ""} /> 
+            }
         </div>
     )
 }

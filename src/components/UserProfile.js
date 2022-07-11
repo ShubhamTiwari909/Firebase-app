@@ -8,6 +8,7 @@ import UserProfileView from './View/UserProfileView';
 function UserProfile({userData}) {
   const userId1 = useParams();
   const dispatch = useDispatch()
+  const username = userData !== null ? userData.displayName : ""
 
   useEffect(() => {
     async function fetch() {
@@ -21,7 +22,7 @@ function UserProfile({userData}) {
 
   return (
     <div className="mt-30">
-      <UserProfileView userData={userData !== null ? userData : ""} />
+         { userData === null ? <div>No quotes found</div> : <UserProfileView userData={userData !== null ? userData : ""} username={username} /> }
     </div>
   )
 }
