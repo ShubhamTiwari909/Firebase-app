@@ -10,12 +10,10 @@ const commentId = uniqueCharacter + uniqueNumber
 async function commentsEvent(e,commmentInput, uniqueId,username) {
   e.preventDefault();
   const querySnapshot2 = uniqueId
-  console.log(querySnapshot2);
 
   const newComment = {
     comment: commmentInput,
     commentId: commentId,
-    replies:[],
     username:username,
   }
   console.log(newComment);

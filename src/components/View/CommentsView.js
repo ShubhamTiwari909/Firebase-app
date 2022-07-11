@@ -11,7 +11,6 @@ function CommentsView({ uniqueId, username }) {
   const [openComments, setOpenComments] = useState(false)
   const isOpenComments = () => setOpenComments(!openComments)
   const quotes = useSelector(state => state)
-  console.log(quotes)
 
   return (
     <div>
@@ -36,14 +35,18 @@ function CommentsView({ uniqueId, username }) {
           quotes && quotes?.map((comment) => {
             return (
               <div key={comment._document.data.value.mapValue.fields.uniqueId.stringValue} className="bg-white p-1.5 text-slate-800 rounded-md break-words">
-                <div>{comment._document.data.value.mapValue.fields.comments.arrayValue.values?.map(value => {
+                <div>{comment._document.data.value.mapValue.fields.comments.arrayValue.values && 
+                comment._document.data.value.mapValue.fields.comments.arrayValue.values?.map(value => {
                   return (
                     <div key={value.mapValue.fields.commentId.stringValue} className="my-3 bg-slate-200 rounded-md p-2">
                       <p className="text-left font-bold text-xs pl-2 mb-2">{value.mapValue.fields.username.stringValue}</p>
                       <p className="text-left text-md pl-2">{value.mapValue.fields.comment.stringValue}</p>
 
                       <div className="collapse space-y-2 my-3" id={`replies${value.mapValue.fields.commentId.stringValue}`}>
-                        {value.mapValue.fields.replies.arrayValue.values && value.mapValue.fields.replies.arrayValue.values?.map(item => {
+                        { comment._document.data.value.mapValue.fields.replies.arrayValue.values
+                         && comment._document.data.value.mapValue.fields.replies.arrayValue.values?.filter(item => {
+                          return value.mapValue.fields.commentId.stringValue === item.mapValue.fields.commentId.stringValue
+                         }).map(item => {
                           return (
                             <div className="bg-slate-700 text-slate-100 text-md text-center p-1 rounded-md"
                               key={item.mapValue.fields.replyId.stringValue}>
@@ -58,11 +61,10 @@ function CommentsView({ uniqueId, username }) {
                                     setReplyInput(e.target.value)
                                   } />
                                 <button><AiOutlineSend size="1rem" color="cyan" onClick={(event) => {
-                                  commentsReply(event, comment._document.data.value.mapValue.fields.comments.arrayValue.values,
-                                    value.mapValue.fields.commentId.stringValue, replyInput, username, uniqueId)
-                                  // setTimeout(() => {
-                                  //   window.location.reload();
-                                  // }, 1200);
+                                  commentsReply(event, value.mapValue.fields.commentId.stringValue,replyInput, username, uniqueId)
+                                  setTimeout(() => {
+                                    window.location.reload();
+                                  }, 1200);
                                 }} /></button>
                               </div>
                               <div>
@@ -82,11 +84,10 @@ function CommentsView({ uniqueId, username }) {
                             setReplyInput(e.target.value)
                           } />
                         <button><AiOutlineSend size="1rem" color="cyan" onClick={(event) => {
-                          commentsReply(event, comment._document.data.value.mapValue.fields.comments.arrayValue.values,
-                            value.mapValue.fields.commentId.stringValue, replyInput, username, uniqueId)
-                          // setTimeout(() => {
-                          //   window.location.reload();
-                          // }, 1200);
+                          commentsReply(event, value.mapValue.fields.commentId.stringValue,replyInput, username, uniqueId)
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, 1200);
                         }} /></button>
                       </div>
                       <div>
