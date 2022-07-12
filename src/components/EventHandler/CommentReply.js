@@ -7,7 +7,7 @@ const uniqueNumber = Math.floor(Math.random() * 99999999999999)
 const uniqueCharacter = Characters[Math.floor(Math.random() * 25)]
 const replyId = uniqueCharacter + uniqueNumber
 
-async function commentsReply(e, commentId, replyInput, username,uniqueId) {
+async function commentsReply(e, commentId, replyInput, username,uniqueId,userId) {
     e.preventDefault();
     const querySnapshot2 = uniqueId;
     const newReply = {
@@ -15,6 +15,7 @@ async function commentsReply(e, commentId, replyInput, username,uniqueId) {
         replyId: replyId,
         commentId: commentId,
         username: username,
+        userId: userId
     }
     const userRef = doc(db, "data", querySnapshot2);
 

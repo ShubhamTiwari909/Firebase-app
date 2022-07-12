@@ -7,18 +7,17 @@ const uniqueNumber = Math.floor(Math.random() * 99999999999999)
 const uniqueCharacter = Characters[Math.floor(Math.random() * 25)]
 const commentId = uniqueCharacter + uniqueNumber
 
-async function commentsEvent(e,commmentInput, uniqueId,username) {
+async function commentsEvent(e,commmentInput, uniqueId,username,userId) {
   e.preventDefault();
   const querySnapshot2 = uniqueId
-
   const newComment = {
     uniqueId:uniqueId,
     comment: commmentInput,
     commentId: commentId,
     username:username,
+    userId: userId
   }
   const userRef = doc(db, "data", querySnapshot2);
-  
   await updateDoc(userRef, {
     comments:arrayUnion(newComment)
   });

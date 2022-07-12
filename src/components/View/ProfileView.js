@@ -85,7 +85,7 @@ function ProfileView({ userId,username }) {
                                 </div>
 
                                 <div className="">
-                                    <CommentsView uniqueId={data._document.data.value.mapValue.fields.uniqueId.stringValue} username={username} />
+                                    <CommentsView uniqueId={data._document.data.value.mapValue.fields.uniqueId.stringValue} username={username} userId={userId} />
                                 </div>
 
                                 <div className="justify-center items-center mt-3 sm:flex sm:space-y-0 sm:space-x-4 mb-2">

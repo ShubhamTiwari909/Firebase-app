@@ -12,6 +12,7 @@ async function CommentDelete(e, comments, uniqueId,commentId) {
         comment:filtered[0].mapValue.fields.comment.stringValue,
         commentId:filtered[0].mapValue.fields.commentId.stringValue,
         username: filtered[0].mapValue.fields.username.stringValue,
+        userId: filtered[0].mapValue.fields.userId.stringValue
     }
     if (filtered.length > 0) {
         const userRef = doc(db, "data", querySnapshot2);
