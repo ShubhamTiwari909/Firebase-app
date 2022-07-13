@@ -29,7 +29,7 @@ const Update = () => {
 
 	return (
 		<div>
-			<QuoteForm name={name} title={title} description={description} quoteCategory={quoteCategory} date={date}
+			<QuoteForm FormTitle={`Update Quote`} name={name} title={title} description={description} quoteCategory={quoteCategory} date={date}
 				setName={setName} setTitle={setTitle} setDescription={setDescription} setQuoteCategory={setQuoteCategory} setDate={setDate}
 				onSubmit={(event) => { UpdateData(event,objectId,name,title,description,quoteCategory,date,navigation) }} />
 		</div>

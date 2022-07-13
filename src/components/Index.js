@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from './Navbar';
-import Landing from './Landing'
-import Add from './Add'
-import Update from './Update';
-import Profile from './Profile'
-import Home from './Home';
-import Details from './Details';
-import UserProfile from './UserProfile';
+import Routings from './Routes/Routes'
 import Footer from './Footer'
 import "tailwindcss/tailwind.css"
 import {
@@ -82,18 +76,12 @@ function Index() {
       <div>
         <ToastContainer className="w-2/3 lg:w-1/5" />
       </div>
+
       <div>
         <button className="fixed bottom-0 right-0 mr-5 my-10 hover:animate-pulse"><FaArrowCircleUp color="#AC3BFF" size="2rem" onClick={scrollToTop} /></button>
       </div>
-      <Routes>
-        <Route exact path='/' element={<Landing signUpWithGoogle={signUpWithGoogle} />} />
-        <Route exact path='/home' element={<Home quoteCategory={quoteCategory} userData={userData} />} />
-        <Route exact path='/profile' element={<Profile userData={userData} />} />
-        <Route exact path='/add' element={<Add userData={userData} />} />
-        <Route exact path='/update/:id' element={<Update />} />
-        <Route exact path='/details/:id' element={<Details userData={userData} />} />
-        <Route exact path='/userprofile/:id' element={<UserProfile userData={userData} />} />
-      </Routes>
+      
+      <Routings signUpWithGoogle={signUpWithGoogle} quoteCategory={quoteCategory} userData={userData} />
       <Footer />
     </div>
   );

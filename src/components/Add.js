@@ -6,6 +6,8 @@ import NoSignIn from './Images/NoQuotes1.png'
 
 const Add = ({ userData }) => {
 	const userId = userData !== null ? userData.uid : ""
+	const username = userData !== null ? userData.displayName : ""
+
 	const [name, setName] = useState("");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -31,9 +33,9 @@ const Add = ({ userData }) => {
 					<img src={NoSignIn} alt="Sign in to write a quote" />
 				</div>
 				:
-				<QuoteForm name={name} title={title} description={description} quoteCategory={quoteCategory} date={date}
+				<QuoteForm FormTitle={`Add a Quote`} name={name} title={title} description={description} quoteCategory={quoteCategory} date={date}
 					setName={setName} setTitle={setTitle} setDescription={setDescription} setQuoteCategory={setQuoteCategory} setDate={setDate}
-					onSubmit={(event) => { SaveData(event, uniqueId, userId, name, title, description, quoteCategory, date, navigation, likes, likesUsers, downloads, comments, replies) }} />
+					onSubmit={(event) => { SaveData(event,username, uniqueId, userId, name, title, description, quoteCategory, date, navigation, likes, likesUsers, downloads, comments, replies) }} />
 			}
 		</div>
 	);

@@ -3,12 +3,13 @@ import { setDoc, doc } from "firebase/firestore";
 import { toast } from 'react-toastify';
 
 
-const SaveData = async (e,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers,downloads,comments,replies) => {
+const SaveData = async (e,username,uniqueId,userId,name,title,description,quoteCategory,date,navigation,likes,likesUsers,downloads,comments,replies) => {
     e.preventDefault();
     try {
         // Add data to the store
         const docRef = doc(db, "data", uniqueId)
         await setDoc(docRef, {
+            username:username,
             userId: userId,
             Name: name,
             Title: title.toUpperCase(),

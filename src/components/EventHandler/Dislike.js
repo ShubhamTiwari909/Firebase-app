@@ -6,6 +6,7 @@ async function dislikesCount(e, likesUsers, uniqueId, likes, userId) {
     const querySnapshot1 = likesUsers
     const querySnapshot2 = uniqueId
     const querySnapshot3 = likes
+    
     const filtered = querySnapshot1.filter(item => item.stringValue === userId);
 
     if (filtered.length > 0) {
